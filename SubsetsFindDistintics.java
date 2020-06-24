@@ -9,6 +9,12 @@ import org.junit.*;
  * Ex.
  * Input: [1, 3, 3]
  * Output: [], [1], [3], [1,3], [3,3], [1,3,3]
+ * 
+ * Time Complexity: O(2^N):  in each step, the number of subsets could double (if not duplicate)
+ *                           as we add each element to all the existing subsets.
+ * 
+ * Space complexity: O(2^N): All the additional space used by our algorithm is for the output 
+ *                    list, and we will have a total of O(2^N) subsets
  */
 public class SubsetsFindDistintics {
 
