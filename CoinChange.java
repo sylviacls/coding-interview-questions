@@ -1,5 +1,8 @@
 import java.util.Arrays;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 public class CoinChange {
 
     public static int coinChange(int[] coins, int amount) {
@@ -28,9 +31,11 @@ public class CoinChange {
        return count;
     }
 
-    public static void main(String[] args) {
-
+    @Test
+    public void validate() {
         int[] coins = {186,419,83,408};
-        System.out.println(coinChange(coins,6249));
+        int[] coins2 = {1,2,5};
+        Assert.assertEquals(16, coinChange(coins,6249));
+        Assert.assertEquals(3, coinChange(coins2,11));
     }
 }
