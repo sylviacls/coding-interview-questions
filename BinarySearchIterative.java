@@ -1,5 +1,4 @@
 import java.util.Arrays;
-
 import org.junit.*;
 
 public class BinarySearchIterative {
