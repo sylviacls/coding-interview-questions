@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.*;
@@ -36,17 +38,43 @@ public class SubsetsFindAll {
                 subsets.add(newSet);
             }
         }
-
         return subsets;
       }
+
+    public static List<List<Integer>> findSubsetsBack(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        backtrack(list, new ArrayList<>(), nums, 0);
+        return list;
+    }
+    
+    private static void backtrack(List<List<Integer>> list , List<Integer> tempList, int [] nums, int start){
+        list.add(new ArrayList<>(tempList));
+        for(int i = start; i < nums.length; i++){
+            tempList.add(nums[i]);
+            backtrack(list, tempList, nums, i + 1);
+            tempList.remove(tempList.size() - 1);
+        }
+    }
     
       @Test
       public void validate() {
         List<List<Integer>> result = SubsetsFindAll.findSubsets(new int[] { 1, 3 });
         Assert.assertEquals("[[], [1], [3], [1, 3]]", result.toString());
     
+        result = SubsetsFindAll.findSubsetsBack(new int[] { 1, 3 });
+        Assert.assertEquals("[[], [1], [1, 3], [3]]", result.toString());
+
         result = SubsetsFindAll.findSubsets(new int[] { 1, 5, 3 });
         Assert.assertEquals("[[], [1], [5], [1, 5], [3], [1, 3], [5, 3], [1, 5, 3]]", result.toString());
+      }
+
+      public static void main(String[] args) {
+        List<List<Integer>> result = SubsetsFindAll.findSubsetsBack(new int[] { 1, 3 });
+        List<List<Integer>> result2 = SubsetsFindAll.findSubsets(new int[] { 1, 3 });
+        System.out.println(result.equals(result2));
+        System.out.println(result.toString());
+        System.out.println(result2.toString());
       }
     
 }
