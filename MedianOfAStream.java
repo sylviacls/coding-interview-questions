@@ -1,6 +1,8 @@
 import java.util.Collections;
 import java.util.PriorityQueue;
 
+import org.junit.*;
+
 
 /**
  * Design a class to calculate the median of a number stream. The class should
@@ -68,15 +70,16 @@ public class MedianOfAStream {
     }
   }
 
-  public static void main(String[] args) {
+  @Test
+  public void validate() {
     MedianOfAStream medianOfAStream = new MedianOfAStream();
     medianOfAStream.insertNum(3);
     medianOfAStream.insertNum(1);
-    System.out.println("The median is: " + medianOfAStream.findMedian());
+    Assert.assertEquals(2.0, medianOfAStream.findMedian(),0);
     medianOfAStream.insertNum(5);
-    System.out.println("The median is: " + medianOfAStream.findMedian());
+    Assert.assertEquals(3.0, medianOfAStream.findMedian(),0);
     medianOfAStream.insertNum(4);
-    System.out.println("The median is: " + medianOfAStream.findMedian());
+    Assert.assertEquals(3.5, medianOfAStream.findMedian(),0);
   }
 
 }

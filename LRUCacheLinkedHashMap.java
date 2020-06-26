@@ -17,7 +17,7 @@ import java.util.Map;
 public class LRUCacheLinkedHashMap<K, V> {
 
     private LinkedHashMap<K, V> cacheMap;
-
+    
     public LRUCacheLinkedHashMap(int capacity) {
            this.cacheMap = new LinkedHashMap<K, V>(capacity, 0.75f, true) {
             protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
