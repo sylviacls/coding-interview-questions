@@ -18,6 +18,47 @@ import org.junit.*;
  */
 public class SubsetsFindDistintics {
 
+    /**
+     * Driver-method - Backtracking approach
+     * @param nums
+     * @return a List of distintic sets
+     */
+    public static List<List<Integer>> findSubsetsBack(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        // This will ensure that all duplicate numbers are next to each other.
+        Arrays.sort(nums);
+        backtrack(list, new ArrayList<>(), nums, 0);
+        return list;
+    }
+    /**
+     * The main idea is to simulate the insertion and exclusion of each number in each subset
+     * using a backtracking approach.
+     * @param list the result list
+     * @param tempList the current subset
+     * @param nums the input
+     * @param start the start index
+     */
+    private static void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, int start){
+        //we add the current subset into the result
+        list.add(new ArrayList<>(tempList));
+        //and then we'll go through the rest of the numbers simulating adding the current number "i"
+        // and move forward in the list and once the recursive function returns we are gonna
+        //simulating removing it
+        for(int i = start; i < nums.length; i++){
+            if(i > start && nums[i] == nums[i-1]) continue; // skip duplicates
+            //we make a choice to insert the current number
+            tempList.add(nums[i]);
+            backtrack(list, tempList, nums, i + 1);
+            //we make a choice not including the current number
+            tempList.remove(tempList.size() - 1);
+        }
+    } 
+
+    /**
+     * An alternative iterative solution
+     * @param nums the input
+     * @return the result list
+     */
     public static List<List<Integer>> findSubsetsDistincts(int[] nums) {
         // This will ensure that all duplicate numbers are next to each other.
         Arrays.sort(nums);
@@ -51,7 +92,6 @@ public class SubsetsFindDistintics {
         }
         return subsets;
       }
-
 
       @Test
       public void validate() {
