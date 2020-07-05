@@ -12,7 +12,6 @@ import java.util.List;
  * Dynamic Programing
  */
 public class SubsetsFindGivenSum {
-
     /**
      * Driver-method: backtracking approach
      * @param nums input
