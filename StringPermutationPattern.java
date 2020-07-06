@@ -9,7 +9,7 @@ import java.util.Map;
  * Space complexity:O(M)O(M) since in the worst case, 
  *                 the whole pattern can have distinct characters which will go into the HashMap.
  */
-public class PermutationStringPattern {
+public class StringPermutationPattern {
 
     //Input: String="oidbeabcaf", Pattern="aabc"
     public static boolean findPermutation(String str, String pattern) {
@@ -49,9 +49,9 @@ public class PermutationStringPattern {
     }
 
     public static void main(String[] args) {
-        System.out.println("Permutation exist: " + PermutationStringPattern.findPermutation("oidbeabcaf", "aabc"));
-        System.out.println("Permutation exist: " + PermutationStringPattern.findPermutation("odicf", "dc"));
-        System.out.println("Permutation exist: " + PermutationStringPattern.findPermutation("bcdxabcdy", "bcdyabcdx"));
-        System.out.println("Permutation exist: " + PermutationStringPattern.findPermutation("aaacb", "abc"));
+        System.out.println("Permutation exist: " + StringPermutationPattern.findPermutation("oidbeabcaf", "aabc"));
+        System.out.println("Permutation exist: " + StringPermutationPattern.findPermutation("odicf", "dc"));
+        System.out.println("Permutation exist: " + StringPermutationPattern.findPermutation("bcdxabcdy", "bcdyabcdx"));
+        System.out.println("Permutation exist: " + StringPermutationPattern.findPermutation("aaacb", "abc"));
       }
 }
