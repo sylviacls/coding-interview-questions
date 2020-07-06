@@ -8,7 +8,8 @@ public class BinarySearchIterative {
         int last = list.length - 1;
 
         while (begin <= last) {
-            int mid = (begin + last) / 2;
+            int mid = begin + (last-begin)/2;
+            //instead of (begin + last)/2 due to potencial integer overflow
             if (number > list[mid]) {
                 begin = mid + 1;
             } else if (number < list[mid]) {
