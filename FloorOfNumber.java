@@ -15,6 +15,9 @@ import org.junit.*;
  * key = 12 
  * Output: 3
  * Explanation: The biggest number smaller than or equal to '12' is '10' having index '3'.
+ * 
+ * Time Complexity: O(logN)
+ * Space Complexity: O(1)
  */
 public class FloorOfNumber {
 
