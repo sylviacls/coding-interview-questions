@@ -12,6 +12,10 @@ import org.junit.*;
  * 
  * Input: [10, 9, 8]
  * Output: 10
+ * 
+ * Time Complexity: Log(logN)
+ * Space Complexity: O(1)
+ * 
  */
 public class MaxInBitonicArray {
   
