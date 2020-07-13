@@ -42,6 +42,9 @@ public class MissingNumber1ToN {
      * XOR all the numbers from 1 to nn, let’s call it xor1.
      * XOR all the numbers in the input array, let’s call it xor2. 
      * The missing number can be found by xor1 XOR xor2.
+     * 
+     * Time Complexity: O(n)
+     * Space complexity: O(1)
      * @param arr
      * @return
      */
