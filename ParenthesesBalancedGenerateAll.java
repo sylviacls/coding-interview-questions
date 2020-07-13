@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import org.junit.*;
 
 /**
  * For a given number ‘N’, write a function to generate all combination of ‘N’
@@ -70,11 +73,14 @@ public class ParenthesesBalancedGenerateAll {
 
       }
 
-      public static void main(String[] args) {
+      @Test
+      public void validate() {
         List<String> result = generateValidParentheses(2);
-        System.out.println("All combinations of balanced parentheses are: " + result);
+        String[] expected = new String[]{"(())","()()"};
+        Assert.assertArrayEquals(expected, result.toArray(new String[result.size()]));
     
         result = generateValidParentheses(3);
+        expected = new String[]{"((()))", "(()())", "(())()", "()(())", "()()()"};
         System.out.println("All combinations of balanced parentheses are: " + result);
       }
 }
