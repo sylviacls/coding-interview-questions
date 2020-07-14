@@ -37,18 +37,28 @@ public class FindTwoSingleNumbers {
      * @return
      */
     public static int[] findSingleNumbersXor(int[] nums) {
+        //ie. { 1,2,1,3,2,5};
+        //1 = 001
+        //2 = 010
+        //1 = 001
+        //3 = 011
+        //2 = 010
+        //5 = 101
         int xor = 0;
         for (int num : nums) {
             xor =  xor ^ num;
         }
+        // xor = 3^5 = 011 ^ 101 = 110 (6)
         // find the lowest bit of the result
-        // let's say 6 (0110), -6 = 1010  0110 & 1010 = 0010
+        // let's say 6 (0110), -6 = 1010 
+        //Thus, 0110 & 1010 = 0010
         int lowBit = xor & -xor;
 
         int n1 = 0;
         int n2 = 0;
         // since this bit from the result is 1, we can be sure that 
         // a & lowbit and b & lowbit have different result
+        //thus, they will be separate (n1 or n2)
         for (int num : nums) {
             if( (num & lowBit) == 0) { //  the bit is not set 
                 n1 = n1 ^ num;
@@ -95,13 +105,12 @@ public class FindTwoSingleNumbers {
         result = findSingleNumbers(arr);
         Assert.assertArrayEquals(expected, result);
 
-        arr = new int[] { 2, 1, 3, 2 };
-        expected = new int[]{1,3};
+        arr = new int[] { 1,2,1,3,2,5};
 
         result = findSingleNumbersXor(arr);
-        Assert.assertArrayEquals(expected, result);
+        Assert.assertArrayEquals(new int[]{5,3}, result);
 
         result = findSingleNumbers(arr);
-        Assert.assertArrayEquals(expected, result);
+        Assert.assertArrayEquals(new int[]{3,5}, result);
     }
 }
