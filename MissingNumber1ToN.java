@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 import org.junit.*;
 
 /**
@@ -15,18 +17,19 @@ public class MissingNumber1ToN {
      */
     public static int findMissingNumber(int[] arr) {
 
-        //int sum = (n*(n+1))/2
-        int sum = 0;
+        int n = arr.length+1;
+        int sum = (n * (n + 1))/2; 
+      /*  int sum = 0;
         for (int i = 1; i <= arr.length+1; i++) {
             sum += i;
-        }
+        }  */
 
-        //int sum2 = Arrays.strem(arr).sum();
-        for (int i = 0; i < arr.length; i++) {
+        int sum2 = Arrays.stream(arr).sum();
+       /* for (int i = 0; i < arr.length; i++) {
             sum -= arr[i];
-        }
+        }*/
 
-        return sum;
+        return sum-sum2;
     }
     
     /**
