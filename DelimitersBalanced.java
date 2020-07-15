@@ -11,21 +11,20 @@ import org.junit.*;
  * All the delimiters have open and close pairs, and they must match up in
  * exactly the correct order in the input string.
  * 
- * Examples: 
- * ([]{}) is balanced. 
- * ({[]}) is balanced. 
- * ([)] is not balanced.
- * (} is not balanced. 
- * ()} is not balanced. 
- * ({} is not balanced.
+ * Examples: ([]{}) is balanced. ({[]}) is balanced. ([)] is not balanced. (} is
+ * not balanced. ()} is not balanced. ({} is not balanced.
  * 
  */
 public class DelimitersBalanced {
 
     /**
-     *  We need to track the sequence of open delimiters that got us to our current position.
-     *  This is needed when we encounter a close delimiter, as we need to ensure the last 
-     *  open delimiter that hasn’t been closed matches the current close delimiter.
+     * We need to track the sequence of open delimiters that got us to our current
+     * position. This is needed when we encounter a close delimiter, as we need to
+     * ensure the last open delimiter that hasn’t been closed matches the current
+     * close delimiter.
+     * 
+     * Time Complexity: O(N)
+     * Space Complexity: O(N)
      * @param input
      * @return
      */
@@ -37,21 +36,67 @@ public class DelimitersBalanced {
         map.put('(', ')');
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
-            if(map.containsKey(c)) {
+            if (map.containsKey(c)) {
                 stack.push(c);
-            } else if (map.containsValue(c)){
-                if(stack.isEmpty()) {
+            } else if (map.containsValue(c)) {
+                if (stack.isEmpty()) {
                     return false;
-               } 
+                }
                 char lastOpen = stack.pop();
-                if(c != map.get(lastOpen)) {
-                   return false;
+                if (c != map.get(lastOpen)) {
+                    return false;
                 }
             }
         }
         return stack.isEmpty();
     }
-    
+
+    /**
+     * An alternative approach using only a stack.
+     * @param input
+     * @return
+     */
+    public boolean isBalancedII(String input) {
+        Stack<Character> stack = new Stack<Character>();
+
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+            } else if (c == ')' || c == '}' || c == ']') {
+                if(stack.isEmpty()) return false;
+
+                char lastOpen = stack.peek();
+                switch (c) {
+                    case ')':
+                        if (lastOpen == '(') {
+                            stack.pop();
+                        } else {
+                            return false;
+                        }
+                        break;
+                    case '}':
+                        if (lastOpen == '{') {
+                            stack.pop();
+                        } else {
+                            return false;
+                        }
+                        break;
+
+                    case ']':
+                        if (lastOpen == '[') {
+                            stack.pop();
+                        } else {
+                            return false;
+                        }
+                        break;
+                }
+            }
+        }
+
+        return stack.isEmpty();
+    }
+
     @Test
     public void validate() {
         Assert.assertTrue(isBalanced("([]{})"));
@@ -60,5 +105,12 @@ public class DelimitersBalanced {
         Assert.assertFalse(isBalanced("(}"));
         Assert.assertFalse(isBalanced("()}"));
         Assert.assertFalse(isBalanced("({}"));
+
+        Assert.assertTrue(isBalancedII("([]{})"));
+        Assert.assertTrue(isBalancedII("({[]})"));
+        Assert.assertFalse(isBalancedII("([)]"));
+        Assert.assertFalse(isBalancedII("(}"));
+        Assert.assertFalse(isBalancedII("()}"));
+        Assert.assertFalse(isBalancedII("({}"));
     }
 }
