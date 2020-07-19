@@ -60,7 +60,7 @@ public class KClosestPointsToOrigin {
      */
     public static int[][] findClosestPointsII(int[][] points, int k) {
       //because we want a maxHeap we have to 'reverse' the comparator
-      PriorityQueue<int[]> maxHeap = new PriorityQueue<int[]>((a,b) -> b[0]*b[0] + b[1]*b[1] - a[0]*a[0] - a[1]*a[1]);
+      PriorityQueue<int[]> maxHeap = new PriorityQueue<int[]>((a,b) -> (b[0]*b[0] + b[1]*b[1]) - (a[0]*a[0] + a[1]*a[1]));
       for (int i = 0; i < k; i++) {
           maxHeap.add(points[i]);
       }
