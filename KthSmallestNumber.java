@@ -5,6 +5,8 @@ import java.util.PriorityQueue;
 import org.junit.*;
 
 /**
+ * Amazon's most ommonly asked interview question!
+ * 
  * Given an unsorted array of numbers, find Kth smallest number in it.
  * 
  * Note that it is the Kth smallest number in the sorted order, not the Kth distinct element.
@@ -51,7 +53,7 @@ public class KthSmallestNumber {
      * 
      * At the end the root of the heap has the Kth smallest number
      * 
-     * Time Complexity: o(N*logK  - adding K element in the heap O(KlogK)
+     * Time Complexity: o(N*logK)  - adding K element in the heap O(KlogK)
      *                            - removing (N-K) elements O((N-K)* logK)
      *                            - total = O(K*logK +  (N-K)* logK)  which is asymptotically equal to O(N*logK)
      * Space Complexity: O(K) -  we need to store ‘K’ smallest numbers in the heap
