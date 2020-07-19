@@ -75,15 +75,15 @@ public class KClosestPointsToOrigin {
      /* for (int i = 0; i < points.length; i++) {
         maxHeap.add(points[i]);
         if(maxHeap.size()> k) {
+            //so each time we will remove the largest distance point
+            //and inside the heap will remain the smallest distance point
             maxHeap.poll();
         } 
         }*/
 
       int[][] result = new int[k][2];
       for (int i = 0; i < k; i++) {
-          int[] point = maxHeap.poll();
-          result[i][0] = point[0];
-          result[i][1] = point[1]; 
+          result[i] = maxHeap.poll();
       }
       return result;
     }
