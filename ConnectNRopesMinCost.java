@@ -25,6 +25,10 @@ public class ConnectNRopesMinCost {
      * Add the above two extracted values and insert the added value to the min-heap. 
      * Maintain a variable for total cost and keep incrementing it by the sum of extracted values.
      * 
+     * Time Complexty: O(N*LogN) to insert all the ropes in the heap
+     *                  In each step, while processing the heap, we take out two elements from the heap and insert one.
+     * Space Complexity: O(N), we need to store all the ropes
+     * 
      * @param ropes
      * @return the min cost
      */
