@@ -25,12 +25,69 @@ import org.junit.*;
 
 public class KClosestPointsToOrigin {
   
+    
     /**
-     * Naive approach: 
-     * Sort the all points by their distance to the origin point directly, 
-     * then get the top k closest points.
+     * Approach: Partition 
+     * This solution is based on quick sort, we can also call it quick select. 
+     * In an ordered array the Kth smallest number will be placed at kth-index
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int[][] findClosestPointsIII(int[][] points, int k) {
+        int left = 0;
+        int right = points.length-1;
+        while (left <= right) {
+            int mid = partition(points, left, right);
+            if (mid == k) {
+                break;
+            } else if(k < mid) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return Arrays.copyOfRange(points, 0, k);
+    }
+
+    private static int partition(int[][] points, int start, int end) {
+        int[] pivot = points[start];
+        int i = start + 1;
+        int j = end;
+
+        while(i <= j) {
+            while( i <=  end && compare(points[i], pivot) < 0) {
+                i++;
+            }
+            while( j >=  start && compare(points[j], pivot) > 0) {
+                j--;
+            }
+            if (i <= j) {
+                swap(points, i, j);
+                i++;
+                j--;
+            }
+        }
+        swap(points, start, j);
+        return j;
+    }
+    
+    private static void swap(int[][] points, int i, int j) {
+        int[] temp = points[i];
+        points[i] = points[j];
+        points[j] = temp;
+    }
+
+    private static int compare(int[] point, int[] pivot) {
+        return (point[0]*point[0] + point[1]*point[1]) - (pivot[0]*pivot[0] + pivot[1]*pivot[1]);
+    }
+
+    /**
+     * Naive approach: Sort the all points by their distance to the origin point
+     * directly, then get the top k closest points.
      * 
      * Time Complexity: O(NlogN)
+     * 
      * @param points
      * @param k
      * @return
@@ -75,7 +132,7 @@ public class KClosestPointsToOrigin {
      /* for (int i = 0; i < points.length; i++) {
         maxHeap.add(points[i]);
         if(maxHeap.size()> k) {
-            //so each time we will remove the largest distance point
+            //so each time we will eject the largest distance point
             //and inside the heap will remain the smallest distance point
             maxHeap.poll();
         } 
@@ -98,15 +155,29 @@ public class KClosestPointsToOrigin {
         int[][] expected = new int[][]{{-2,2}};
         Assert.assertArrayEquals(expected, findClosestPoints(points, 1));
         Assert.assertArrayEquals(expected, findClosestPointsII(points, 1));
+        Assert.assertArrayEquals(expected, findClosestPointsIII(points, 1));
 
         int[][] points2 = new int[][]{{3,3},{5,-1},{-2,4}};
         Assert.assertArrayEquals(new int[][]{{3,3},{-2,4}}, findClosestPoints(points2, 2));
         Assert.assertArrayEquals(new int[][]{{-2,4},{3,3}}, findClosestPointsII(points2, 2));
+        Assert.assertArrayEquals(new int[][]{{3,3},{-2,4}}, findClosestPointsIII(points2, 2));
 
         int[][] points3 = new int[][]{{1,3},{-2,2},{2,-2}};
         int[][] expected3 = new int[][]{{-2,2},{2,-2}};
 
         Assert.assertArrayEquals(expected3, findClosestPoints(points3, 2));
         Assert.assertArrayEquals(expected3, findClosestPointsII(points3, 2));
+        Assert.assertArrayEquals(expected3, findClosestPointsIII(points3, 2));
+    }
+
+    public static void main(String[] args) {
+        int[][] points = new int[][]{{3,3},{5,-1},{-2,4}};
+        int[][] result = findClosestPointsIII(points, 2);
+        for (int[] nums : result) {
+            for (int num : nums) {
+                System.out.println(num+",");
+            }
+            System.out.println();
+        }
     }
   }
