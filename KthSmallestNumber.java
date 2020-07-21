@@ -17,16 +17,17 @@ import org.junit.*;
  */
 public class KthSmallestNumber {
 
+
     /**
-     * Approach: Using a Min-Heap
-     * We can insert all the numbers in the min-heap and then extract the top ‘K’ numbers 
-     * from the heap to find the Kth smallest number
+     * Approach: Using a Min-Heap We can insert all the numbers in the min-heap and
+     * then extract the top ‘K’ numbers from the heap to find the Kth smallest
+     * number
      * 
-     * Time Complexity: O(N) - adding an element in a priority queue is O(logN) worst case
-     *                          - Initializing the min-heap with all numbers O(N)
-     *                         - removing one elem is O(logN), so removing K is O(K* logN)
-     *                         - O(N + K logN) = O(N)
-     * Space Complexity: O(N)
+     * Time Complexity: O(N) - adding an element in a priority queue is O(logN)
+     * worst case - Initializing the min-heap with all numbers O(N) - removing one
+     * elem is O(logN), so removing K is O(K* logN) - O(N + K logN) = O(N) Space
+     * Complexity: O(N)
+     * 
      * @param nums
      * @param k
      * @return
