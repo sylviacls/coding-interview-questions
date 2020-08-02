@@ -48,12 +48,15 @@ public class SubsetSumEqualPartition {
     private static boolean canPartitionHelper(int[] nums, int index, int sum, Boolean[][] state) {
         //base cases
         if(sum == 0) return true;
-        if(index >= nums.length || nums[index] > sum) return false;
+        if(index >= nums.length) return false;
 
         //if we have had processed this state before, return it
         if(state[index][sum] != null) return state[index][sum];
 
-        boolean sumWithCurrent = canPartitionHelper(nums, index+1, sum - nums[index], state);
+        boolean sumWithCurrent = false;
+        if(nums[index] <= sum) {
+            sumWithCurrent = canPartitionHelper(nums, index+1, sum - nums[index], state);
+        }
         boolean sumWithoutCurrent = canPartitionHelper(nums, index+1, sum, state);
 
         state[index][sum] = sumWithCurrent || sumWithoutCurrent;
