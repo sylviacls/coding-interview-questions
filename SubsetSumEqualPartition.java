@@ -25,7 +25,7 @@ import org.junit.*;
  *    equal to sum/2.
  *    This step can be solved either using recursion or Dynamic Programming.
  */
-public class EqualSubsetSumPartition {
+public class SubsetSumEqualPartition {
 
     /**
      * Approaach: Brute-Force with Recursion and memoization
