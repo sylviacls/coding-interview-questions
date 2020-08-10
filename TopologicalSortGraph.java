@@ -115,6 +115,9 @@ public class TopologicalSortGraph {
      * Finally, print contents of stack. Note that a vertex is pushed to stack only when all 
      * of its adjacent vertices (and their adjacent vertices and so on) are already in stack.
      * 
+     * Time Complexity: O(V+E), The above algorithm is simply DFS with an extra stack. 
+     *              So time complexity is the same as DFS which is.
+     * Space Complexity: O(V) for the stack recursion
      * @param vertices
      * @param edges
      * @return
@@ -138,7 +141,7 @@ public class TopologicalSortGraph {
         //taking vertex by vertex and calling DFS for its children
         Stack<Integer> stack = new Stack<Integer>();
         for (int i = 0; i < vertices; i++) {
-            if(!visited.contains(i)) {
+            if(!visited.contains(i)) { 
                 sortDFSUtil(graph, i, visited, stack);
             }
         }
