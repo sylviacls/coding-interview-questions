@@ -1,3 +1,5 @@
+import org.junit.*;
+
 /**
  * Leetcode: 643. Maximum Average Subarray I
  * 
@@ -33,15 +35,14 @@ public class MaximumAverageSubarrayI {
         int windowSum = maxSum;
         for (int i = k; i < nums.length; i++) {
             windowSum = windowSum - nums[i-k] + nums[i];
-            if(windowSum > maxSum) {
-                maxSum = windowSum;
-            }
+            maxSum = Math.max(maxSum, windowSum);
         }
         return (double) maxSum/k;
     }
 
-    public static void main(String[] args) {
-        System.out.println(findMaxAverage(new int[]{1,12,-5,-6,50,3}, 4));
-        System.out.println(findMaxAverage(new int[]{0,4,0,3,2}, 1));
+    @Test
+    public void validate() {
+        Assert.assertEquals(12.75, findMaxAverage(new int[]{1,12,-5,-6,50,3}, 4),0);
+        Assert.assertEquals(4.0,findMaxAverage(new int[]{0,4,0,3,2}, 1),0);
     }
 }
