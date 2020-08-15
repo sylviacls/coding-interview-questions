@@ -1,7 +1,4 @@
 import java.util.*;
-
-import org.junit.*;
-
 /**
  * Design a class to efficiently find the Kth largest element in a stream of numbers.
  * 
