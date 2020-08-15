@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Given a string, find all of its permutations
  */
-public class StringPermutation {
+public class StringFindAllPermutations {
     public static List<String> findPermutation(String input) {
         List<String> result = new ArrayList<String>();
         char[] string = input.toCharArray();
