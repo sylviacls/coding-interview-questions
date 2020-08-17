@@ -20,6 +20,7 @@ public class TwoSum {
      * Time complexity O(N) : We traverse the list containing nn elements exactly twice.
      *                      Since the hash table reduces the look up time to O(1), the time complexity is O(n).
      * Space complexity O(N): he extra space required depends on the number of items stored in the hash table, which stores exactly nn elements.
+     *
      * */
     public static int[] checkSum(int[] input, int target) {
         //storing the number and its index
