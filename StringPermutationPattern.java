@@ -64,7 +64,8 @@ public class StringPermutationPattern {
           if (matched == charFrequencyMap.size())
             return true;
     
-          if (windowEnd - windowStart >= pattern.length() - 1) { // shrink the window by one character
+          //if the size of window is >= of the pattern's lenght we have to shrink it 
+          if (windowEnd - windowStart + 1 >= pattern.length()) { // shrink the window by one character
             char leftChar = str.charAt(windowStart);
             if (charFrequencyMap.containsKey(leftChar)) {
               if (charFrequencyMap.get(leftChar) == 0) {
