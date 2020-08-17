@@ -1,12 +1,26 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Leetcode: 26. Remove Duplicates from Sorted Array
+ * 
+ * Given an array of sorted numbers, remove all duplicates from it. 
+ * You should not use any extra space; after removing the duplicates in-place return the
+ * new length of the array.
+ * 
+ */
 public class RemoveDuplicate {
 
     /**
-     * Given an array of sorted numbers, remove all duplicates from it.
-     * You should not use any extra space; 
-     * after removing the duplicates in-place return the new length of the array.
+     * Approach: Two Pointers
+     * 
+     * We will keep one pointer for iterating the array and one pointer for placing the next 
+     * non-duplicate number. So our algorithm will be to iterate the array and whenever we see 
+     * a non-duplicate number we move it next to the last non-duplicate number we’ve seen.
+     * 
+     * Time Complexity: O(N)
+     * Space Complexity: O(1)
+     * 
      */
     public static int removeDuplicate(int[] input) {
         int nextNonDuplicate = 1;
@@ -14,8 +28,7 @@ public class RemoveDuplicate {
             if(input[i] != input[i+1]) {
                 input[nextNonDuplicate] = input[i+1];
                 nextNonDuplicate++;
-            }
-            
+            }     
         }
         return nextNonDuplicate;
     }
