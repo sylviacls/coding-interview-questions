@@ -2,21 +2,30 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Given an array containing 0s, 1s and 2s, sort the array in-place. You should
- * treat numbers of the array as objects, hence, we can’t count 0s, 1s, and 2s
- * to recreate the array.
+ * Leetcode: 75. Sort Colors
+ * 
+ * "Given an array with n objects colored red, white or blue, sort them in-place so that 
+ * objects of the same color are adjacent, with the colors in the order red, white and blue."
+ * 
+ * Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue 
+ * respectively.
  * 
  * The flag of the Netherlands consists of three colors: red, white and blue;
  * and since our input array also consists of three different numbers that is
  * why it is called Dutch National Flag problem
  * 
- * Time Complexity: O(n) as we are iterating the input array only once.
- * Space Complexity: O(1)
  */
 public class DutchNacionalFlag {
-         //      l  i  h
-    //Input: [0, 1, 0, 1, 2]
-    //Output: [0 0 1 1 2]
+
+    /**
+     * Approach: Two Pointers
+     * 
+     * Time Complexity: O(n) as we are iterating the input array only once.
+     * Space Complexity: O(1)
+     * 
+     * @param input unsorrted array
+     * @return sorted array
+     */
     public static int[] sortArrayOf012(int[] input) {
         int low= 0;
         int high = input.length-1;
@@ -31,7 +40,7 @@ public class DutchNacionalFlag {
                 i++;
             } else{ 
                 swap(input, i, high);
-             //   i++;
+             // decrement 'high' only, after the swap the number at index 'i' could be 0, 1 or 2
                 high--;
             }
         }
