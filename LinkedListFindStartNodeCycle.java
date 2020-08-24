@@ -1,14 +1,45 @@
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
+import java.util.*;
 
 /**
- * Given the head of a Singly LinkedList that contains a cycle,
- * write a function to find the starting node of the cycle.
- * Time complexity: O(n)
- * Space complexity: O(1)
+ * 
+ * 142. Linked List Cycle II
+ * 
+ * Given the head of a Singly LinkedList that contains a cycle, write a function to find 
+ * the starting node of the cycle. If there is no cycle, return null.
+ * 
  */
 public class LinkedListFindStartNodeCycle {
 
+
+    /**
+     * Approach: Using a HashMap
+     * 
+     * Time complexity: O(N)
+     * Space complexity: O(N)
+     * 
+     */
+    public static ListNode findStartNodeCycleII(ListNode head) {
+      if(head == null || head.next == null) return null;
+      Set<ListNode> visited = new HashSet<ListNode>();
+      
+      ListNode pointer = head;
+      
+      while (pointer != null) {
+          if(visited.contains(pointer)) return pointer;
+          
+          visited.add(pointer);
+          pointer = pointer.next;
+      }
+      return null;       
+    }
+    
+    /**
+     * Approach: Two Pointers: slow/fast
+     * 
+     * Time complexity: O(n)
+     * Space complexity: O(1)
+     */
     public static ListNode findStartNodeCycle(ListNode head) {
 
         ListNode slow = head;
@@ -19,7 +50,7 @@ public class LinkedListFindStartNodeCycle {
             slow = slow.next;
             fast =  fast.next.next;
 
-            if(fast.next == slow) {
+            if(fast == slow) { // found the cycle
                 length = calculateLength(slow);
                 break;
             } 
@@ -54,9 +85,9 @@ public class LinkedListFindStartNodeCycle {
           count++;
             
         }while(current != slow);
-
         return count;
     }
+
     
     @Test
     public void validate(){
@@ -69,13 +100,16 @@ public class LinkedListFindStartNodeCycle {
         head.next.next.next.next.next = new ListNode(6);
     
         head.next.next.next.next.next.next = head.next.next;
-        Assert.assertEquals(head.next.next, LinkedListFindStartNodeCycle.findStartNodeCycle(head));
-    
+        Assert.assertEquals(head.next.next, findStartNodeCycle(head));
+        Assert.assertEquals(head.next.next, findStartNodeCycleII(head));
+
         head.next.next.next.next.next.next = head.next.next.next;
-        Assert.assertEquals(head.next.next.next, LinkedListFindStartNodeCycle.findStartNodeCycle(head));
+        Assert.assertEquals(head.next.next.next, findStartNodeCycle(head));
+        Assert.assertEquals(head.next.next.next, findStartNodeCycleII(head));
     
         head.next.next.next.next.next.next = head;
-        Assert.assertEquals(head, LinkedListFindStartNodeCycle.findStartNodeCycle(head));
+        Assert.assertEquals(head, findStartNodeCycle(head));
+        Assert.assertEquals(head, findStartNodeCycleII(head));
     }
 
 }
