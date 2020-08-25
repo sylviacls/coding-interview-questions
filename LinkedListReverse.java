@@ -2,14 +2,18 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Leetcode: 206. Reverse Linked List
+ * 
  * Given the head of a Singly LinkedList, reverse the LinkedList. Write a
  * function to return the new head of the reversed LinkedList.
  * 
- * Time Complexity: O(n)
- * Space Complexity: O(1)
  */
 public class LinkedListReverse {
 
+    /**
+     * Time Complexity: O(n)
+     * Space Complexity: O(1)
+     */
     public static ListNode reverse(ListNode head) {
         ListNode current = head; // current node that we will be processing
         ListNode previous = null; // previous node that we have processed
