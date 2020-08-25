@@ -18,21 +18,23 @@ public class LinkedListRearrenged {
         return;
 
         ListNode firstHalf = head;
+        // find the middle of the LinkedList
         ListNode middle = findMiddle(head);
-
+        //reverse the second half
         ListNode secondHalf = reverse(middle);
 
-        while(firstHalf != null && secondHalf != null && 
-              firstHalf.next != null && !firstHalf.next.equals(secondHalf)) {
+        //merging the halves 
+        while(firstHalf != null && secondHalf != null) {
+            ListNode nextFH = firstHalf.next; //temporarily storing next node from the first half
+            firstHalf.next = secondHalf; // inserting the curr node from second half
+            firstHalf = nextFH; // updating the curr node from the first half
 
-            ListNode nextFH = firstHalf.next;
-            firstHalf.next = secondHalf;
-            firstHalf = nextFH;
-
-            ListNode nextSH = secondHalf.next;
-            secondHalf.next = nextFH;
-            secondHalf = nextSH;
+            ListNode nextSH = secondHalf.next; //temp. storing next node from the second half
+            secondHalf.next = firstHalf; // inserting the curr node from first half
+            secondHalf = nextSH; //updatinh the curr node from the second half
         }
+        // set the next of the last node to 'null'
+         if (firstHalf != null) firstHalf.next = null;
 
     }
     
