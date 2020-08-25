@@ -2,19 +2,32 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Leetcode: 876. Middle of the Linked List
+ * 
  * Given the head of a Singly LinkedList, write a method to return the middle node of
  * the LinkedList. If the total number of nodes in the LinkedList is even,
- *  return the second middle node.
+ * return the second middle node.
  * 
- * t the fast pointer is always twice the nodes ahead of the slow pointer.
- *  This way, when the fast pointer reaches the end of the LinkedList, the slow pointer
- *  will be pointing at the middle node.
+ * Example 1:
+ * Input: 1 -> 2 -> 3 -> 4 -> 5 -> null
+ * Output: 3
  * 
- * Time complexity: O(n)
- * Space complexity: O(1) 
+ * Example 2:
+ * Input: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> null
+ * Output: 4
  */
 public class LinkedListFindMidle {
 
+    /**
+     * Approach: Two Pointers slow/fast
+     * 
+     * The fast pointer is always twice the nodes ahead of the slow pointer.
+     * This way, when the fast pointer reaches the end of the LinkedList, the slow pointer
+     * will be pointing at the middle node.
+     * 
+     * Time complexity: O(n)
+     * Space complexity: O(1) 
+     */
     public static ListNode findMiddle(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
