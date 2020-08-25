@@ -1,16 +1,23 @@
 /**
+ * Leetcode: 92. Reverse Linked List II
+ * 
  * Given the head of a LinkedList and two positions ‘p’ and ‘q’, reverse the
  * LinkedList from position ‘p’ to ‘q’.
  * 
- * Time Complexity: O(n) Space Complexity: O(1)
  */
 public class LinkedListReverseSubList {
 
   /**
+   * Approach: Two pointers - slow/fast
+   * 
    * Skip the first p-1 nodes, to reach the node at position p. Remember the node
    * at position p-1 to be used later to connect with the reversed sub-list. Next,
    * reverse the nodes from p to q using the same approach discussed in Reverse a
    * LinkedList. Connect the p-1 and q+1 nodes to the reversed sub-list.
+   * 
+   * Time Complexity: O(n) 
+   * Space Complexity: O(1)
+   * 
    */
   public static ListNode reverseSubList(ListNode head, int p, int q) {
 
@@ -55,7 +62,6 @@ public class LinkedListReverseSubList {
 
     return head;
   }
-
   public static void main(String[] args) {
     ListNode head = new ListNode(1);
     head.next = new ListNode(2);
@@ -63,13 +69,14 @@ public class LinkedListReverseSubList {
     head.next.next.next = new ListNode(4);
     head.next.next.next.next = new ListNode(5);
 
-    ListNode result = LinkedListReverseSubList.reverseSubList(head, 2, 5);
+   ListNode result = LinkedListReverseSubList.reverseSubList(head, 2, 5);
     System.out.print("Nodes of the reversed LinkedList are: ");
     while (result != null) {
       System.out.print(result.value + " ");
       result = result.next;
     }
   }
+  
 }
 
 /*class ListNode {
