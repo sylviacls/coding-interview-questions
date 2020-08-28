@@ -1,112 +1,66 @@
 import java.util.*;
+import java.util.stream.Stream;
+
+import org.junit.*;
 
 /**
+ * Leetcode: 56. Merge Intervals
+ * 
  * Given a list of intervals, merge all the overlapping intervals to produce a
  * list that has only mutually exclusive intervals.
  * 
- * Time Complexity: O(n logn): n is the number of intervals. We must sort first
- * Space complexity: O (n) we need to return a new list, also sorting uses O(n)
  */
 public class IntervalsMerge {
 
-    public static List<Interval> merge(List<Interval> intervals) {
-        if (intervals.size() <= 1)
-            return intervals;
+    /**
+     * Approach: Sorting
+     * 
+     * If we sort the intervals by their start value, then each set of intervals that can
+     * be merged will appear as a contiguous "run" in the sorted list.
+     * 
+     * Time Complexity: O(n logn): n is the number of intervals. We must sort first
+     * Space complexity: O (n) we need to return a new list, also sorting uses O(n)
+     */
+    public static int[][] merge(int[][] intervals) {
+        if(intervals.length <= 1) return intervals;
 
-        // sort the intervals by start time
-        Collections.sort(intervals, (a, b) -> Integer.compare(a.start, b.start));
+		// Sort by ascending starting point
+        Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
+        List<int[]> result = new LinkedList<int[]>();
 
-        List<Interval> mergedIntervals = new LinkedList<Interval>();
-
-        Iterator<Interval> intervalItr = intervals.iterator();
-        Interval interval = intervalItr.next();
         // we must keep tracking of start and end values for continguous merging
         // only when we found a non-overlapping case we add a interval with the start
         // and end stored so far
-        int start = interval.start;
-        int end = interval.end;
+        int prevStart = intervals[0][0];
+        int prevEnd = intervals[0][1];
 
-        while (intervalItr.hasNext()) {
-            interval = intervalItr.next();
-            if (interval.start <= end) {// overlapping
-                end = Math.max(end, interval.end);
-            } else { // non-overlapping;
-                mergedIntervals.add(new Interval(start, end));
-                start = interval.start;
-                end = interval.end;
+        for (int i = 1; i < intervals.length; i++) {
+            //if the start of curr interval is <= end of previous interval
+            int currStart = intervals[i][0];
+            int currEnd = intervals[i][1];
+            if( currStart<= prevEnd) { //there is a overlap
+                //take the min end between them
+                prevEnd = Math.max(prevEnd, currEnd);
+            } else { //no overlap
+                result.add(new int[]{prevStart, prevEnd});
+                prevStart = currStart;
+                prevEnd = currEnd;
             }
         }
         // add the last interval
-        mergedIntervals.add(new Interval(start, end));
-
-        return mergedIntervals;
-
+        result.add(new int[]{prevStart, prevEnd});
+        return result.toArray(new int[result.size()][]);
     }
 
-    public static Boolean hasOverlapping(List<Interval> intervals) {
+    @Test
+    public void validate() {
+        int[][] result = merge(new int[][]{{1,3},{2,6},{8,10},{15,18}});
+        Stream.of(result).map(Arrays::toString).forEach(System.out::println);
+        Assert.assertArrayEquals(new int[][]{{1,6}, {8,10},{15,18}}, result);
 
-        if(intervals.size() <= 1) return Boolean.FALSE;
-
-        Collections.sort(intervals, (a,b) -> Integer.compare(a.start, b.start));
-
-        ListIterator<Interval> iterator = intervals.listIterator();
-        Interval currentInterval = iterator.next();
-      //  int start = currentInterval.start;
-        int end = currentInterval.end;
-
-        while(iterator.hasNext()) {
-            currentInterval = iterator.next();
-            if(currentInterval.start <= end) {
-                return Boolean.TRUE;
-            } else {
-              //  start = currentInterval.start;
-                end = currentInterval.end;
-            }
-        }
-
-        return Boolean.FALSE;
-    }
-    public static void main(String[] args) {
-        List<Interval> input = new ArrayList<Interval>();
-        input.add(new Interval(1, 4));
-        input.add(new Interval(2, 5));
-        input.add(new Interval(7, 9));
-        System.out.println("Does it have an overlapping? :" + hasOverlapping(input));
-        System.out.print("Merged intervals: ");
-        for (Interval interval : IntervalsMerge.merge(input))
-            System.out.print("[" + interval.start + "," + interval.end + "] ");
-        System.out.println();
-
-        input = new ArrayList<Interval>();
-        input.add(new Interval(6, 7));
-        input.add(new Interval(2, 4));
-        input.add(new Interval(5, 9));
-        System.out.println("Does it have an overlapping? :" + hasOverlapping(input));
-        System.out.print("Merged intervals: ");
-        for (Interval interval : IntervalsMerge.merge(input))
-            System.out.print("[" + interval.start + "," + interval.end + "] ");
-        System.out.println();
-
-        input = new ArrayList<Interval>();
-        input.add(new Interval(1, 4));
-        input.add(new Interval(2, 6));
-        input.add(new Interval(3, 5));
-        System.out.println("Does it have an overlapping? :" + hasOverlapping(input));
-        System.out.print("Merged intervals: ");
-        for (Interval interval : IntervalsMerge.merge(input))
-            System.out.print("[" + interval.start + "," + interval.end + "] ");
-        System.out.println();
-
-        input = new ArrayList<Interval>();
-        input.add(new Interval(1, 3));
-        input.add(new Interval(4, 7));
-        input.add(new Interval(10, 13));
-        System.out.println("Does it have an overlapping? :" + hasOverlapping(input));
-        System.out.print("Merged intervals: ");
-        for (Interval interval : IntervalsMerge.merge(input))
-            System.out.print("[" + interval.start + "," + interval.end + "] ");
-        System.out.println();
-
+        int[][] result2 = merge(new int[][]{{1,4}, {4,5}});
+        Stream.of(result2).map(Arrays::toString).forEach(System.out::println);
+        Assert.assertArrayEquals(new int[][]{{1,5}}, result2);
     }
 }
 /*class Interval {
