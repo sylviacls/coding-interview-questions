@@ -1,86 +1,75 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
+
+import org.junit.*;
 
 /**
+ * Leetcode: 57. Insert Interval
+ * 
  * Given a list of non-overlapping intervals sorted by their start time, insert
  * a given interval at the correct position and merge all necessary intervals to
  * produce a list that has only mutually exclusive intervals.
- * Time Complexity: O(n)
- * Space complexity: O (n) we need to return a new list, 
+ * 
+ * Example 1: 
+ * Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
+ * Output: [[1,5],[6,9]]
+ * 
+ * Example 2:
+ * Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+ * Output: [[1,2],[3,10],[12,16]]
+ * Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
+
 **/
 public class IntervalsInsert {
 
-    public static List<Interval> insertInterval(List<Interval> intervals, Interval newInterval) {
+    /**
+     * Time Complexity: O(n)
+     * Space complexity: O (n) we need to return a new list
+     */
+    public static int[][] insertInterval(int[][] intervals, int[] newInterval) {
+        //base cases
+        if(intervals.length == 0) return new int[][]{newInterval};
+        if(newInterval == null || newInterval.length == 0) return intervals;
 
-        if (intervals == null || intervals.isEmpty())
-            return Arrays.asList(newInterval);
+        List<int[]> result = new LinkedList<int[]>();
 
-        List<Interval> mergedIntervals = new ArrayList<Interval>();
+        int newIntStart = newInterval[0];
+        int newIntEnd = newInterval[1];
 
-        // skip (and add to output) all intervals that come before the 'newInterval'
+        // add all the intervals ending before newInterval starts
         int i = 0;
-        while (i < intervals.size() && intervals.get(i).end < newInterval.start) {
-            mergedIntervals.add(intervals.get(i));
+        while(i < intervals.length && intervals[i][1] < newIntStart) {
+            result.add(intervals[i]);
             i++;
         }
-        // merge all intervals that overlap with 'newInterval'
-        int start = newInterval.start;
-        int end = newInterval.end;
-        while (i < intervals.size() && intervals.get(i).start <= end) {
-            start = Math.max(start, intervals.get(i).end);
-            end = Math.max(end, intervals.get(i).end);
+
+        // merge all overlapping intervals to one considering newInterval
+        int mergedStart = newIntStart;
+        int mergedEnd = newIntEnd;
+        while (i < intervals.length && intervals[i][0] <= mergedEnd) {
+            mergedStart = Math.min(mergedStart, intervals[i][0]);
+            mergedEnd = Math.max(mergedEnd, intervals[i][1]);
             i++;
         }
-        // insert the newInterval
-        mergedIntervals.add(new Interval(start, end));
+        result.add(new int[]{mergedStart, mergedEnd});
 
         // add all the remaining intervals to the output
-        while (i < intervals.size()) {
-            mergedIntervals.add(intervals.get(i));
+        while(i < intervals.length) {
+            result.add(intervals[i]);
             i++;
         }
-
-        return mergedIntervals;
+        return result.toArray(new int[result.size()][]);
     }
 
-    public static void main(String[] args) {
-        List<Interval> input = new ArrayList<Interval>();
-        input.add(new Interval(1, 3));
-        input.add(new Interval(5, 7));
-        input.add(new Interval(8, 12));
-        System.out.print("Intervals after inserting the new interval: ");
-        for (Interval interval : IntervalsInsert.insertInterval(input, new Interval(4, 6)))
-            System.out.print("[" + interval.start + "," + interval.end + "] ");
-        System.out.println();
+    @Test
+    public void validate() {
+        int[][] result = insertInterval(new int[][]{{1,3},{5,7},{8,12}}, new int[]{4,6});
+        Stream.of(result).map(Arrays::toString).forEach(System.out::println);
+        Assert.assertArrayEquals(new int[][]{{1,3}, {4,7},{8,12}}, result);
 
-        input = new ArrayList<Interval>();
-        input.add(new Interval(1, 3));
-        input.add(new Interval(5, 7));
-        input.add(new Interval(8, 12));
-        System.out.print("Intervals after inserting the new interval: ");
-        for (Interval interval : IntervalsInsert.insertInterval(input, new Interval(4, 10)))
-            System.out.print("[" + interval.start + "," + interval.end + "] ");
-        System.out.println();
-
-        input = new ArrayList<Interval>();
-        input.add(new Interval(2, 3));
-        input.add(new Interval(5, 7));
-        System.out.print("Intervals after inserting the new interval: ");
-        for (Interval interval : IntervalsInsert.insertInterval(input, new Interval(1, 4)))
-            System.out.print("[" + interval.start + "," + interval.end + "] ");
-        System.out.println();
-
+        int[][] result2 = insertInterval(new int[][]{{1,3},{5,7},{8,12}}, new int[]{4,10});
+        Stream.of(result2).map(Arrays::toString).forEach(System.out::println);
+        Assert.assertArrayEquals(new int[][]{{1,3}, {4,12}}, result2);
     }
 
 }
-
-/*class Interval {
-    int start;
-    int end;
-
-    public Interval(int start, int end) {
-        this.start = start;
-        this.end = end;
-    }
-}*/
