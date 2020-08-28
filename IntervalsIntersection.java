@@ -1,62 +1,60 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.*;
+
 /**
+ * Leetcode: 986. Interval List Intersections
+ * 
  * Given two lists of intervals, find the intersection of these two lists. Each
- * list consists of disjoint intervals sorted on their start time. 
- * Time complexity: O( n + m), n and m the number of intervals of each input
- * Space complexity: O(n)
+ * list consists of disjoint intervals sorted on their start time.
+ * 
+ * Input:
+ * A = [[0,2],[5,10],[13,23],[24,25]], 
+ * B = [[1,5],[8,12],[15,24],[25,26]]
+ * Output: [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]] 
  */
 public class IntervalsIntersection {
 
-    public static Interval[] intersection(Interval[] input1, Interval[] input2) {
-       List<Interval> intersection = new ArrayList<Interval>();
-        //find intersection and calculate it
+    /** 
+     * Approach: Two Pointers
+     * 
+     * Time complexity: O( n + m), n and m the number of intervals of each input
+     * Space complexity: O(n)
+     */
+    public static int[][] intersection(int[][] A, int[][] B) {
+        List<int[]> intersection = new ArrayList<int[]>();
+        
         int i = 0;
         int j = 0;
-
-        // whenever the two intervals overlap, 
-        //one of the interval’s start time lies within the other interval.
-        while (i <input1.length && j <= input2.length) {
-            if(input1[i].start <= input2[j].end && input1[i].start >= input2[j].start
-               || input2[j].start <= input1[i].end && input2[j].start >= input1[i].start) {
-                intersection.add(new Interval(Math.max(input1[i].start, input2[j].start),
-                Math.min(input1[i].end, input2[j].end)));
+        while (i < A.length && j < B.length) {
+            // whenever the two intervals overlap, 
+            int startA = A[i][0];
+            int endA = A[i][1];
+            int startB = B[j][0];
+            int endB = B[j][1];
+            //one of the interval’s start time lies within the other interval.
+            if( (startA >= startB && startA <= endB) || // A'start is within B
+                (startB >= startA && startB<= endA)){ //B'start is within A
+                int startInter = Math.max(startA , startB);
+                int endInter = Math.min(endA , endB);
+                intersection.add(new int[]{startInter,endInter});
             }
-            if(input1[i].end < input2[j].end) {
+            if(endA < endB) {
                 i++;
             } else {
                 j++;
             }
-        }
-        return intersection.toArray(new Interval[intersection.size()]);
+        }   
+        return intersection.toArray(new int[intersection.size()][]);
     }
 
-    public static void main(String[] args) {
-        Interval[] input1 = new Interval[] { new Interval(1, 3), new Interval(5, 6), new Interval(7, 9) };
-        Interval[] input2 = new Interval[] { new Interval(2, 3), new Interval(5, 7) };
-        Interval[] result = IntervalsIntersection.intersection(input2, input1);
-        System.out.print("Intervals Intersection: ");
-        for (Interval interval : result)
-          System.out.print("[" + interval.start + "," + interval.end + "] ");
-        System.out.println();
-    
-        input1 = new Interval[] { new Interval(1, 3), new Interval(5, 7), new Interval(9, 12) };
-        input2 = new Interval[] { new Interval(5, 10) };
-        result = IntervalsIntersection.intersection(input2, input1);
-        System.out.print("Intervals Intersection: ");
-        for (Interval interval : result)
-          System.out.print("[" + interval.start + "," + interval.end + "] ");
-      }
-    
+
+    @Test
+    public void validate() {
+        int[][] result = intersection(new int[][]{{0,2},{5,10},{13,23},{24,25}}, 
+                    new int[][]{{1,5},{8,12},{15,24},{25,26}});
+        int[][] expected = new int[][]{{1,2},{5,5},{8,10},{15,23},{24,24},{25,25}};
+        Assert.assertArrayEquals(result, expected);
+    }    
 }
-
-/*class Interval {
-    int start;
-    int end;
-
-    public Interval(int start, int end) {
-        this.start = start;
-        this.end = end;
-    }
-}*/
