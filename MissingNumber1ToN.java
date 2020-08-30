@@ -4,16 +4,14 @@ import org.junit.*;
 
 /**
  * Given an array of n-1n−1 integers in the range from 1 to N,
- *  find the one number that is missing from the array.
+ * find the one number that is missing from the array.
  */
 public class MissingNumber1ToN {
 
     /**
      * A straight forward approach to solve this problem can be:
-     * Find the sum of all integers from 11 to nn; let’s call it sum. 
+     * Find the sum of all integers from 1 to n; let’s call it sum. 
      * Subtract all the numbers in the input array from sum; this will give us the missing number.
-     * @param arr
-     * @return
      */
     public static int findMissingNumber(int[] arr) {
 
