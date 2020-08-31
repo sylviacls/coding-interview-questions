@@ -33,7 +33,7 @@ public class DuplicateNumberFindOne {
      * Time complexity: O(n)
      * Space complexity: O(n)
      */
-    public static int findDuplicateI(int[] nums) {
+    public static int findDuplicate(int[] nums) {
         Set<Integer> seen = new HashSet<Integer>();
         for (int num : nums) {
             if(!seen.contains(num)) {
@@ -116,9 +116,20 @@ public class DuplicateNumberFindOne {
 
     @Test
     public void validate() {
+        Assert.assertEquals(4,findDuplicate(new int[] { 1, 4, 4, 3, 2 }));
         Assert.assertEquals(4,findDuplicateII(new int[] { 1, 4, 4, 3, 2 }));
+        Assert.assertEquals(4,findDuplicateII(new int[] { 1, 4, 4, 3, 2 }));
+
+        Assert.assertEquals(3,findDuplicate(new int[] { 2, 1, 3, 3, 5, 4 }));
         Assert.assertEquals(3,findDuplicateII(new int[] { 2, 1, 3, 3, 5, 4 }));
+        Assert.assertEquals(3,findDuplicateIII(new int[] { 2, 1, 3, 3, 5, 4 }));
+
+        Assert.assertEquals(4,findDuplicate(new int[] { 2, 4, 1, 4, 4 }));
         Assert.assertEquals(4,findDuplicateII(new int[] { 2, 4, 1, 4, 4 }));
+        Assert.assertEquals(4,findDuplicateIII(new int[] { 2, 4, 1, 4, 4 }));
+
+        Assert.assertEquals(3,findDuplicate(new int[] { 3, 1, 3, 4, 2 }));
         Assert.assertEquals(3,findDuplicateII(new int[] { 3, 1, 3, 4, 2 }));
+        Assert.assertEquals(3,findDuplicateIII(new int[] { 3, 1, 3, 4, 2 }));
       }
 }
