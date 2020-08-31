@@ -19,7 +19,7 @@ public class LinkedListFindStartNodeCycle {
      * Space complexity: O(N)
      * 
      */
-    public static ListNode findStartNodeCycleII(ListNode head) {
+    public static ListNode findStartNodeCycle(ListNode head) {
       if(head == null || head.next == null) return null;
       Set<ListNode> visited = new HashSet<ListNode>();
       
@@ -40,7 +40,7 @@ public class LinkedListFindStartNodeCycle {
      * Time complexity: O(n)
      * Space complexity: O(1)
      */
-    public static ListNode findStartNodeCycle(ListNode head) {
+    public static ListNode findStartNodeCycleII(ListNode head) {
 
         ListNode slow = head;
         ListNode fast = head;
@@ -87,6 +87,33 @@ public class LinkedListFindStartNodeCycle {
         }while(current != slow);
         return count;
     }
+
+    /**
+     * Approach: Two Pointers: slow/fast. 
+     * A compact algo based on findStartNodeCycleII
+     * 
+     * Time complexity: O(n)
+     * Space complexity: O(1)
+     */
+    public ListNode findStartNodeCycleIII(ListNode head) {
+      ListNode slow = head;
+      ListNode fast = head;
+
+      while (fast!=null && fast.next!=null){
+          fast = fast.next.next;
+          slow = slow.next;
+          
+          if (fast == slow){
+              ListNode slow2 = head; 
+              while (slow2 != slow){
+                  slow = slow.next;
+                  slow2 = slow2.next;
+              }
+              return slow;
+          }
+      }
+      return null;
+  }
 
     
     @Test
