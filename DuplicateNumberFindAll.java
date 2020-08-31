@@ -5,8 +5,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Leetcode: 442. Find All Duplicates in an Array
+ * https://leetcode.com/problems/find-all-duplicates-in-an-array/
+ * 
  * We are given an unsorted array containing ‘n’ numbers taken from the range 1 to ‘n’.
- *  The array has some duplicates, find all the duplicate numbers without using any 
+ * The array has some duplicates, find all the duplicate numbers without using any 
  * extra space.
  * 
  * Time Complexity: O(n)
@@ -15,8 +18,10 @@ import org.junit.Test;
 public class DuplicateNumberFindAll {
 
     /**
-     * Input: [5, 4, 7, 2, 3, 5, 3]
-     * Output: [3, 5]
+     * Approach: Cyclic Sort
+     * 
+     * Time Complexity: O(N)
+     * Space Complexity: O(1)
      */
     public static int[] findAllDuplicates(int[] input){
 
