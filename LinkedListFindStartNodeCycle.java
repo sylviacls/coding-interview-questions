@@ -129,14 +129,17 @@ public class LinkedListFindStartNodeCycle {
         head.next.next.next.next.next.next = head.next.next;
         Assert.assertEquals(head.next.next, findStartNodeCycle(head));
         Assert.assertEquals(head.next.next, findStartNodeCycleII(head));
+        Assert.assertEquals(head.next.next, findStartNodeCycleIII(head));
 
         head.next.next.next.next.next.next = head.next.next.next;
         Assert.assertEquals(head.next.next.next, findStartNodeCycle(head));
         Assert.assertEquals(head.next.next.next, findStartNodeCycleII(head));
+        Assert.assertEquals(head.next.next.next, findStartNodeCycleIII(head));
     
         head.next.next.next.next.next.next = head;
         Assert.assertEquals(head, findStartNodeCycle(head));
         Assert.assertEquals(head, findStartNodeCycleII(head));
+        Assert.assertEquals(head, findStartNodeCycleIII(head));
     }
 
 }
