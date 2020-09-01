@@ -5,19 +5,40 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Given an unsorted array containing numbers, 
- * find the smallest missing positive number in it.
+ * Leetcode: 41. First Missing Positive
  * 
- * Time Complexity: O(n)
- * Space complexity: O(1) 
+ * Given an unsorted array containing numbers, find the smallest missing positive 
+ * number in it.
+ * 
+ * Example 1:
+ * Input: [1,2,0]
+ * Output: 3
+ * 
+ * Example 2:
+ * Input: [3,4,-1,1]
+ * Output: 2
+ * 
+ * Example 3:
+ * Input: [7,8,9,11,12]
+ * Output: 1
+ * 
  */
 public class FirstMissingPositive {
 
     /**
-     * Input: [-3, 1, 5, 4, 2]
-     * Output: 3
+     * Approach: Cyclic Sort
+     * 
+     * Place the numbers on their correct indices and ignore all numbers that are out of 
+     * the range of the array (i.e., all negative numbers and all numbers greater than 
+     * or equal to the length of the array). Once we are done with the cyclic sort we 
+     * will iterate the array and the first index that does not have the correct number 
+     * will be the smallest missing positive number.
+     * 
+     * Time Complexity: O(N)
+     * Space Complexity: O(1)
      */
     public static int firstMissingPositive(int[] input) {
+
         int i = 0;
         while(i < input.length) {
             if(input[i] >0 && input[i] <= input.length 
@@ -32,7 +53,9 @@ public class FirstMissingPositive {
                 return j+1;
             }
         }
-        return -1;
+        // once we have ignored all numbers that are out of the range of the array
+        //and we reach this point, thus it means the array contains all numbers 1..n
+        return input.length + 1;
     }
 
     
@@ -42,8 +65,17 @@ public class FirstMissingPositive {
         input[j] = temp;
     }
 
-    //this approach uses Hash
-    // may take O(n) time on average, but it requires O(n) extra space
+    /**
+     * Approach: Using Hash
+     * 
+     * We can build a hash table of all positive elements in the given array. Once the hash
+     * table is built. We can look in the hash table for all positive integers, starting
+     * from 1. As soon as we find a number which is not there in hash table, we return it.
+     * 
+     * Time Complexity: O(N)
+     * Space Complexity: O(N)
+     * 
+     */
     public static int firstMissingPositiveWithHash(int[] input) {
         HashMap<Integer, Integer> map = new HashMap<Integer,Integer>();
         int maxValue = 1;
@@ -63,7 +95,12 @@ public class FirstMissingPositive {
         return maxValue;
     }
 
-    //this approach takes O(nLogn + n) for sorting time which is O(nLogn).
+    /**
+     * Approach: Sorting
+     * 
+     * Time Complexity: (nLogn + n) for sorting time which is O(nLogn).
+     * Space Complexity: O(1) (if the sort method is in-place)
+     */
     public static int firstMissingPositiveWithSort(int[] input) {              
         Arrays.sort(input);
         int minPositive = 1;
@@ -77,10 +114,29 @@ public class FirstMissingPositive {
 
     @Test
     public void validate() {
-        Assert.assertEquals(2,firstMissingPositive(new int[]{1, 1, 0, -1, -2}));
-        Assert.assertEquals(4,firstMissingPositive(new int[]{2, 3, -7, 6, 8, 1, -10, 15 }));
-        Assert.assertEquals(3, FirstMissingPositive.firstMissingPositive(new int[] { -3, 1, 5, 4, 2 }));
-        Assert.assertEquals(4,FirstMissingPositive.firstMissingPositive(new int[] { 3, -2, 0, 1, 2 }));
-        Assert.assertEquals(4,FirstMissingPositive.firstMissingPositive(new int[] { 3, 2, 5, 1 }));
+        Assert.assertEquals(2, firstMissingPositive(new int[]{1, 1, 0, -1, -2}));
+        Assert.assertEquals(2, firstMissingPositiveWithHash(new int[]{1, 1, 0, -1, -2}));
+        Assert.assertEquals(2, firstMissingPositiveWithSort(new int[]{1, 1, 0, -1, -2}));
+
+        Assert.assertEquals(4, firstMissingPositive(new int[]{2, 3, -7, 6, 8, 1, -10, 15 }));
+        Assert.assertEquals(4, firstMissingPositiveWithHash(new int[]{2, 3, -7, 6, 8, 1, -10, 15 }));
+        Assert.assertEquals(4, firstMissingPositiveWithSort(new int[]{2, 3, -7, 6, 8, 1, -10, 15 }));
+
+        Assert.assertEquals(3, firstMissingPositive(new int[] { -3, 1, 5, 4, 2 }));
+        Assert.assertEquals(3, firstMissingPositiveWithHash(new int[] { -3, 1, 5, 4, 2 }));
+        Assert.assertEquals(3, firstMissingPositiveWithSort(new int[] { -3, 1, 5, 4, 2 }));
+
+        Assert.assertEquals(4, firstMissingPositive(new int[] { 3, -2, 0, 1, 2 }));
+        Assert.assertEquals(4, firstMissingPositiveWithHash(new int[] { 3, -2, 0, 1, 2 }));
+        Assert.assertEquals(4, firstMissingPositiveWithSort(new int[] { 3, -2, 0, 1, 2 }));
+
+        Assert.assertEquals(4, firstMissingPositive(new int[] { 3, 2, 5, 1 }));
+        Assert.assertEquals(4, firstMissingPositiveWithHash(new int[] { 3, 2, 5, 1 }));
+        Assert.assertEquals(4, firstMissingPositiveWithSort(new int[] { 3, 2, 5, 1 }));
+
+        Assert.assertEquals(1, firstMissingPositive(new int[] { }));
+        Assert.assertEquals(1, firstMissingPositiveWithHash(new int[] { }));
+        Assert.assertEquals(1, firstMissingPositiveWithSort(new int[] { }));
+   
     }
 }
