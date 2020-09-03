@@ -1,82 +1,86 @@
 /**
- * Given the head of a LinkedList and a number ‘k’, reverse every ‘k’ sized sub-list 
- * starting from the head. If, in the end, you are left with a sub-list with less than ‘k’ elements,
- *  reverse it too.
  * 
- *  * Time Complexity: O(n) Space Complexity: O(1)
+ * Given the head of a LinkedList and a number ‘k’, reverse every ‘k’ sized sub-list 
+ * starting from the head. 
+ * If, in the end, you are left with a sub-list with less than ‘k’ elements, reverse it too.
+ * 
  */
 
 public class LinkedListReverseKElements {
 
-    public static boolean END_REACHED = false;
+    /**
+     * Time Complexity: O(N)
+     * Space Complexity: O(1)
+     */  
+    public static ListNode reverseKElementsIterative(ListNode head, int k) {
+      //base cases
+      if (k <= 1 || head == null || head.next == null) return head;
 
-    public static ListNode reverseKElements(ListNode head, int K) {
-
-        END_REACHED = false;
-        int start = 1;
-        int end = K;
-        //index -> K
-        // K+ 1 -> 2K+1
-        // up to current == null
-        ListNode current = head;
-        while(current != null && !END_REACHED) {
-          current = reverseSublist(current, start, end);
-          start = start + K;
-          end = end + K;
+      ListNode current = head, previous = null;
+      while(true) {
+        ListNode lastNodeCurrentSublist = current;
+        ListNode lastNodeOfPreviousPart = previous;
+        ListNode next = null;
+        for (int i = 0; i < k && current != null; i++) {
+          next = current.next;
+          current.next = previous;
+          previous = current;
+          current = next;  
         }
-        return current;
+        //at this point previous is pointing to the begin of the reverse sublist 
+        //and next is pointing to next node outside the sublist
 
-    }
-
-    public static ListNode reverseSublist(ListNode head, int p, int q){
-
-        if (p == q)
-        return head;
-  
-      //finding the starting node of the sublist and saving the previous for late connection  
-      ListNode lastNodeCurrentSublist = head;
-      ListNode lastNodeOfPreviousPart = null;
-  
-      int indexStart = 1;
-      while (lastNodeCurrentSublist != null && indexStart < p) {
-        lastNodeOfPreviousPart = lastNodeCurrentSublist;
-        lastNodeCurrentSublist = lastNodeCurrentSublist.next;
-        indexStart++;
-      }
-  
-      //reversing the sublist
-      ListNode current = lastNodeCurrentSublist;
-      ListNode previous = null;
-      ListNode next = null;
-  
-      int indexEnd = q - p;
-      while (current != null && indexEnd >= 0) {
-        next = current.next;
-        current.next = previous;
-        previous = current;
-        current = next;
-        indexEnd--;
-      }
-      //at this point previous is pointing to the begin of the reverse sublist 
-      //and next is pointing to next node outside the sublist
-  
-       // we have to check if the previousSublist node was the head or not
-      if (lastNodeOfPreviousPart != null) {
-        lastNodeOfPreviousPart.next = previous;
-      } else {
-        head = previous;
-      }
-  
-      //handling the case where the sublist's lenght is lesser than K
-      // and flagging the END_REACHED
-      if(lastNodeCurrentSublist != null) {
+        // connect with the previous part
+        if (lastNodeOfPreviousPart != null) {
+          lastNodeOfPreviousPart.next = previous; // 'previous' is now the first node of the sub-list
+        } else { // this means we are changing the first node (head) of the LinkedList
+          head = previous;
+        }
+        // connect with the next part
         lastNodeCurrentSublist.next = next;
-      } else {
-         END_REACHED = true;
+
+        // break, if we've reached the end of the LinkedList
+        if(current == null) break;
+        // prepare for the next sub-list
+        previous = lastNodeCurrentSublist;
       }
-  
       return head;
     }
+
+    /**
+     * Approach: Using Recursion
+     * 
+     * Time Complexity: O(n)
+     * Space Complexity: O(1)
+     * 
+     */
+    public static ListNode reverseKElementsRecursive(ListNode head, int k) {
+        
+      if (head == null || head.next == null || k <= 1) 	return head;
+      
+      ListNode current = head; 
+      ListNode next = null; 
+      ListNode prev = null; 
+        
+      int count = 0; 
+      /* Reverse first k nodes of linked list */
+      while (count < k && current != null)  { 
+          next = current.next; 
+          current.next = prev; 
+          prev = current; 
+          current = next; 
+          count++; 
+      } 
+ 
+      /* next is now a pointer to (k+1)th node  
+         Recursively call for the list starting from current. 
+         And make rest of the list as next of first node */
+      if (next != null)  
+         head.next = reverseKElementsRecursive(next, k); 
+ 
+      // prev is now head of input list 
+      return prev;    
+   }
 
     public static void main(String[] args) {
       ListNode head = new ListNode(1);
@@ -88,7 +92,7 @@ public class LinkedListReverseKElements {
       head.next.next.next.next.next.next = new ListNode(7);
       head.next.next.next.next.next.next.next = new ListNode(8);
   
-      ListNode result = LinkedListReverseKElements.reverseKElements(head, 3);
+      ListNode result = LinkedListReverseKElements.reverseKElementsIterative(head, 3);
       System.out.print("Nodes of the reversed LinkedList are: ");
       while (result != null) {
         System.out.print(result.value + " ");
@@ -103,7 +107,7 @@ public class LinkedListReverseKElements {
       head.next.next.next.next.next = new ListNode(6);
       head.next.next.next.next.next.next = new ListNode(7);
       head.next.next.next.next.next.next.next = new ListNode(8);
-      result = LinkedListReverseKElements.reverseKElements(head, 2);
+      result = LinkedListReverseKElements.reverseKElementsRecursive(head, 2);
       System.out.print("Nodes of the reversed LinkedList are: ");
       while (result != null) {
         System.out.print(result.value + " ");
@@ -112,11 +116,11 @@ public class LinkedListReverseKElements {
     }
 }
 
-/*class ListNode {
+class ListNode {
     int value = 0;
     ListNode next;
 
     ListNode(int value) {
         this.value = value;
     }
-}*/
+}
