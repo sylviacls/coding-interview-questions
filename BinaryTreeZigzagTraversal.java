@@ -7,14 +7,20 @@ import org.junit.Test;
  * You should populate the values of all nodes of the first level from left to right, 
  * then right to left for the next level and keep alternating in the same manner for 
  * the following levels.
- * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
- * Space complexity O(N): as we need to return a list containing the level order traversal. 
- *                       We will also need O(N)O(N) space for the queue.
  */
 public class BinaryTreeZigzagTraversal {
     
+    /**
+     * Approach: BFS
+     * 
+     * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
+     * Space complexity O(N): as we need to return a list containing the level order traversal. 
+     *                       We will also need O(N)O(N) space for the queue.
+     */
     public static List<List<Integer>> zigZagTraverse(TreeNode root) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
+        if(root == null) return result;
+        
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         boolean leftToRight = true;
 
@@ -43,6 +49,7 @@ public class BinaryTreeZigzagTraversal {
         }
         return result;
       }
+
       @Test
       public void validade() {
         TreeNode root = new TreeNode(12);
@@ -53,9 +60,8 @@ public class BinaryTreeZigzagTraversal {
         root.right.right = new TreeNode(5);
         root.right.left.left = new TreeNode(20);
         root.right.left.right = new TreeNode(17);
-        List<List<Integer>> result = zigZagTraverse(root);
-        Assert.assertEquals("[[12], [1, 7], [9, 10, 5], [17, 20]]", result.toString());
-      }
+        Assert.assertEquals("[[12], [1, 7], [9, 10, 5], [17, 20]]", zigZagTraverse(root).toString());
+    }
 }
 /*class TreeNode {
     int val;
