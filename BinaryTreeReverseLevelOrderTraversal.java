@@ -20,6 +20,9 @@ public class BinaryTreeReverseLevelOrderTraversal {
      */
     public static List<List<Integer>> traverseReverse(TreeNode root) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
+
+        //base case
+        if(root == null) return result;
      
        //insted of using a stack we can use the linkedList by placing the 
        // currentlevel at the 0 position. In a linked list we won't have any shiffiting
