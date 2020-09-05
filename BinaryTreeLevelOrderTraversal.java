@@ -3,18 +3,49 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Leetcode: 102. Binary Tree Level Order Traversal
+ * 
  * Given a binary tree, populate an array to represent its level-by-level traversal.
  * You should populate the values of all nodes of each level from left to right in 
  * separate sub-arrays.
  * 
- * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
- * Space complexity O(N): as we need to return a list containing the level order traversal. 
- *                       We will also need O(N)O(N) space for the queue. 
+ * For example:
+ * Given binary tree [3,9,20,null,null,15,7],
+    3
+   / \
+  9  20
+    /  \
+   15   7
+  return its level order traversal as:
+ [
+  [3],
+  [9,20],
+  [15,7]
+ ]
+ * 
  */
 public class BinaryTreeLevelOrderTraversal {
 
+  /**
+   * Approach: BFS - Breadth First Search
+   * 
+   * Start by pushing the root node to the queue. 
+   * Keep iterating until the queue is empty. 
+   * In each iteration, first count the elements in the queue (let’s call it levelSize). 
+   * We will have these many nodes in the current level. 
+   * Next, remove levelSize nodes from the queue and push their value in an array to represent
+   * the current level. 
+   * After removing each node from the queue, insert both of its children into the queue.
+   * 
+   * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
+   * Space complexity O(N): as we need to return a list containing the level order traversal. 
+   *                       We will also need O(N)O(N) space for the queue. 
+   */
   public static List<List<Integer>> traverse(TreeNode root) {
+
     List<List<Integer>> result = new ArrayList<List<Integer>>();
+    if (root == null) return result;
+
     Queue<TreeNode> queue = new LinkedList<TreeNode>();
     
     queue.offer(root);
