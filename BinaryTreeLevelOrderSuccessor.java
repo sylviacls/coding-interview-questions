@@ -8,11 +8,15 @@ import org.junit.Test;
  * in the tree. The level order successor is the node that appears right after the 
  * given node in the level order traversal.
  * 
- * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
- * Space complexity O(N): as we need space for the queue.
  */
 public class BinaryTreeLevelOrderSuccessor {
 
+    /**
+     * Approach: BFS
+     * 
+     * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
+     * Space complexity O(N): as we need space for the queue.
+     */
     public static TreeNode findSuccessor(TreeNode root, int key) {
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         boolean keyFound = false;
