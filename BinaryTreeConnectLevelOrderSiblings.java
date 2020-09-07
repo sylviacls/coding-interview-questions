@@ -28,12 +28,10 @@ public class BinaryTreeConnectLevelOrderSiblings {
 
     while (!queue.isEmpty()) {
       TreeNode previous = null;
-      TreeNode current = null;
-
       int levelSize = queue.size();
 
       for (int i = 0; i < levelSize; i++) {
-        current = queue.poll();
+        TreeNode current = queue.poll();
 
         if (previous != null) {
           previous.next = current;
