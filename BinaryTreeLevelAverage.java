@@ -1,23 +1,28 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
 
 /**
+ * Leetcode:  637. Average of Levels in Binary Tree
+ * https://leetcode.com/problems/average-of-levels-in-binary-tree/
+ * 
  * Given a binary tree, populate an array to represent the averages of all of
- * its levels.
- * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
- * Space complexity O(N): as we need to return a list containing the level order traversal. 
- *                       We will also need O(N)O(N) space for the queue. 
+ * its levels. 
  */
 public class BinaryTreeLevelAverage {
 
+    /**
+     * Approach: BFS
+     * 
+     * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
+     * Space complexity O(N): as we need to return a list containing the level order traversal. 
+     *                       We will also need O(N)O(N) space for the queue.
+     */
     public static List<Double> levelAverages(TreeNode root){
-        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         List<Double> levelAverages = new ArrayList<Double>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+
+        if(root == null) return levelAverages;
 
         queue.offer(root);
         while(!queue.isEmpty()){
