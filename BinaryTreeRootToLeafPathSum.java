@@ -4,16 +4,22 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Given a binary tree and a number ‘S’, find if the tree has a path from root-to-leaf
- *  such that the sum of all the node values of that path equals ‘S’.
+ * Leetcode: 112. Path Sum
+ * https://leetcode.com/problems/path-sum/
  * 
- * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
- *                      This is due to the fact that we traverse each node once. (Recursive method)
- * Space complexity O(N):  This space will be used to store the recursion stack. 
+ * Given a binary tree and a number ‘S’, find if the tree has a path from root-to-leaf
+ * such that the sum of all the node values of that path equals ‘S’.
+ * 
  */
 public class BinaryTreeRootToLeafPathSum {
 
-    //uses DFS
+    /**
+     * Approach: DFS
+     * 
+     * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
+     *                      This is due to the fact that we traverse each node once. (Recursive method)
+     * Space complexity O(N):  This space will be used to store the recursion stack. 
+     */
     public static boolean hasPath(TreeNode root, int sum) {
 
         if(root == null) return Boolean.FALSE;
@@ -52,6 +58,12 @@ public class BinaryTreeRootToLeafPathSum {
         return Boolean.FALSE;
     }
 
+    /**
+     * Approach: DFS Recursive
+     * Time complexity O(N): where ‘N’ is the total number of nodes in the tree
+     *                      This is due to the fact that we traverse each node once. (Recursive method)
+     * Space complexity O(N):  This space will be used to store the recursion stack. 
+     */
     public static boolean hasPathRec(TreeNode root, int sum) {
 
         if (root == null)
