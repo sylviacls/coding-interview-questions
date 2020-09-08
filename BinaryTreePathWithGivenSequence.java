@@ -6,43 +6,38 @@ import org.junit.Test;
 /**
  * Given a binary tree and a number sequence, find if the sequence is present as
  * a root-to-leaf path in the given tree.
- * 
- * Time Complexity: O(N) we traverse each node once
- * Space complexity: O(N) recursion stack
  */
 public class BinaryTreePathWithGivenSequence {
 
-    public static boolean findPathWithSequence(TreeNode root, int[] sequence) {
-        List<Integer> currentPath = new ArrayList<Integer>();
-        List<List<Integer>> pathsFound = new ArrayList<>();
-        findPath(root, sequence, currentPath, pathsFound);
+    /**
+     * Approach: DFS
+     * 
+     * Time Complexity: O(N) we traverse each node once
+     * Space complexity: O(N) recursion stack
+     */    
+      public static boolean findPathWithSequence(TreeNode root, int[] sequence) {
+        if (root == null)
+          return sequence.length == 0;
 
-        return pathsFound.size() > 0;
-      }
-      
-      private static void findPath(TreeNode currentNode, int[] sequence,
-                             List<Integer> currentPath, List<List<Integer>> pathFound) {
-          if(currentNode == null) return;
-
-          currentPath.add(currentNode.val);
-
-          if(currentNode.left == null && currentNode.right == null &&
-                sequenceMath(currentPath, sequence)) {
-                    pathFound.add( new ArrayList<>(currentPath));
-          }
-
-          findPath(currentNode.left, sequence, currentPath, pathFound);
-          findPath(currentNode.right, sequence, currentPath, pathFound);
-        
-          currentPath.remove(currentPath.size()-1);
+        return findPathRecursive(root, sequence, 0);
       }
 
-      private static boolean sequenceMath(List<Integer> currentPath, int[] sequence) {
-          List<Integer> sequenceList = new ArrayList<Integer>();
-          for (int iSequence : sequence) {
-            sequenceList.add(iSequence);
-          }
-          return currentPath.equals(sequenceList);
+      private static boolean findPathRecursive(TreeNode currentNode, int[] sequence, int sequenceIndex) {
+
+        if (currentNode == null)
+          return false;
+
+        if (sequenceIndex >= sequence.length || currentNode.val != sequence[sequenceIndex])
+          return false;
+
+        // if the current node is a leaf, add it is the end of the sequence, we have found a path!
+        if (currentNode.left == null && currentNode.right == null && sequenceIndex == sequence.length - 1)
+          return true;
+
+        // recursively call to traverse the left and right sub-tree
+        // return true if any of the two recusrive call return true
+        return findPathRecursive(currentNode.left, sequence, sequenceIndex + 1)
+            || findPathRecursive(currentNode.right, sequence, sequenceIndex + 1);
       }
 
       @Test
