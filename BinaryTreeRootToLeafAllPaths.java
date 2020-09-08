@@ -4,10 +4,19 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Leetcode: 257. Binary Tree Paths
+ * https://leetcode.com/problems/binary-tree-paths/
+ * 
  * Given a binary tree, return all root-to-leaf paths.
  */
 public class BinaryTreeRootToLeafAllPaths {
 
+    /**
+     * Approach: DFS Recursive
+     * 
+     * Time Complexity: O(N)
+     * Space Complexity: O(N)
+     */
     public static List<List<Integer>> findAllPaths(TreeNode root) {
         List<List<Integer>> allPaths = new ArrayList<>();
         List<Integer> currentPath = new ArrayList<Integer>();
