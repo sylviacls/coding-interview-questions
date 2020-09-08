@@ -4,17 +4,24 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Leetcode: 113. Path Sum II
+ * https://leetcode.com/problems/path-sum-ii/
+ * 
  * Given a binary tree and a number ‘S’, find all paths from root-to-leaf such
  * that the sum of all the node values of each path equals ‘S’.
  * 
- * Time Complexity: O(N logN) - O (N²)
- * Space Complexity: O(N Log N)
- *                  the depth (or height) of a balanced binary tree is O(logN)
- *                  at the most, each path can have logN nodes in it
- *                  allPaths list will be O(N*logN)
  */
 public class BinaryTreeRootToLeafAllPathsSum {
 
+    /**
+     * Approach: DFS
+     * 
+     * Time Complexity: O(N logN) - O (N²)
+     * Space Complexity: O(N Log N)
+     *                  the depth (or height) of a balanced binary tree is O(logN)
+     *                  at the most, each path can have logN nodes in it
+     *                  allPaths list will be O(N*logN)
+     */
     public static List<List<Integer>> findPaths(TreeNode root, int sum) {
         List<List<Integer>> allPaths = new ArrayList<>();
         List<Integer> currentPath = new ArrayList<Integer>();
