@@ -36,7 +36,8 @@ public class BinaryTreeRootToLeafAllPathsSum {
 
         // add the current node to the path
         currentPath.add(root.val);
-
+        
+        // if the current node is a leaf and its value is equal to sum, save the current path                    
         if(root.val == sum && root.left == null && root.right == null) {
             //we need store as a new/independent arraylist object 
             //cause we are at the same time changing the current path (adding and removing)
