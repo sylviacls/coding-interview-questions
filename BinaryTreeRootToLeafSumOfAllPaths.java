@@ -5,11 +5,15 @@ import org.junit.Test;
 * Given a binary tree where each node can only have a digit (0-9) value, each root-to-leaf
 * path will represent a number. Find the total sum of all the numbers represented by 
 * all paths.
-* Time Complexity: O(N) we traverse each node once
-* Space complexity: O(N) recursion stack
 */
 public class BinaryTreeRootToLeafSumOfAllPaths {
 
+    /**
+     * Approach: DFS
+     * 
+     * Time Complexity: O(N) we traverse each node once
+     * Space complexity: O(N) recursion stack
+     */  
     public static int sumAllPaths(TreeNode root) {
         return findPath(root, 0);
     }
