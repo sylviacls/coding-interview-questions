@@ -29,7 +29,7 @@ public class BinaryTreeLongestUnivaluePath {
      * 
      * Time Complexity: O(N), where N is the number of nodes in the tree. 
      *                  We process every node once.
-     * Space Complexity: O(H), where HH is the height of the tree. 
+     * Space Complexity: O(H), where H is the height of the tree. 
      *                  Our recursive call stack could be up to HH layers deep.
      */
     public static int longestUnivaluePath(TreeNode root) {
