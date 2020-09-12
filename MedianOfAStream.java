@@ -5,8 +5,13 @@ import org.junit.*;
 
 
 /**
- * Design a class to calculate the median of a number stream. The class should
- * have the following two methods:
+ * Leetcode: 295. Find Median from Data Stream
+ * https://leetcode.com/problems/find-median-from-data-stream/
+ * 
+ * Design a class to calculate the median of a number stream. 
+ * Median is the middle value in an ordered integer list.
+ * 
+ * The class should have the following two methods:
  * 
  * insertNum(int num): stores the number in the class findMedian(): returns the
  * median of all numbers inserted in the class
@@ -23,6 +28,7 @@ import org.junit.*;
  * smallNumList or the smallest number in the largNumList. If the total number
  * of elements is even, the median will be the average of these two numbers.
  * 
+ * Approach: Two Heaps
  * Time complexity: O(log N) due to the insertion in the heap
  * Space complexity: O(N) because, as at any time, we will be storing all the numbers
  * 
