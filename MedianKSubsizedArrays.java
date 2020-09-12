@@ -5,13 +5,32 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Leetcode: 480. Sliding Window Median
+ * https://leetcode.com/problems/sliding-window-median/
+ * 
  * Given an array of numbers and a number ‘k’, find the median of all the ‘k’
  * sized sub-arrays (or windows) of the array.
+ * 
+ * For example,
+ * Given nums = [1,3,-1,-3,5,3,6,7], and k = 3.
+ * Window position                Median
+ * ---------------               -----
+ * [1  3  -1] -3  5  3  6  7       1
+ * 1 [3  -1  -3] 5  3  6  7       -1
+ * 1  3 [-1  -3  5] 3  6  7       -1
+ * 1  3  -1 [-3  5  3] 6  7       3
+ * 1  3  -1  -3 [5  3  6] 7       5
+ * 1  3  -1  -3  5 [3  6  7]      6
+ * 
+ * Therefore, return the median sliding window as [1,-1,-1,3,5,6].
+ * 
+ * Approach: Sliding Window + Two Heaps
  * 
  * Time complexity: O(N*K) where ‘N’ is the total number of elements in the input array and ‘K’ 
  *                  is the size of the sliding window
  * Space complexity: O(K): because, at any time, we will be storing all the numbers within
  *                   the sliding window.
+ *
  */
 
 public class MedianKSubsizedArrays {
@@ -24,7 +43,7 @@ public class MedianKSubsizedArrays {
     }
 
     public void inserNum(int num) {
-        if (maxHeap.isEmpty() || num > maxHeap.peek()) {
+        if (maxHeap.isEmpty() || num < maxHeap.peek()) {
             maxHeap.add(num);
         } else {
             minHeap.add(num);
@@ -53,7 +72,7 @@ public class MedianKSubsizedArrays {
 
     public double median() {
         if (maxHeap.size() == minHeap.size()) {
-            return (maxHeap.peek() + minHeap.peek()) / 2.0;
+            return ((double) maxHeap.peek() + minHeap.peek()) / 2.0;
         } else {
             return maxHeap.peek();
         }
@@ -93,6 +112,16 @@ public class MedianKSubsizedArrays {
         slidingWindowMedian = new MedianKSubsizedArrays();
         result = slidingWindowMedian.findSlidingWindowMedian(new int[] { 1, 2, -1, 3, 5 }, 3);
         expected = new double[]{1.0, 2.0, 3.0};
+        Assert.assertArrayEquals(expected,result, 0);
+
+        slidingWindowMedian = new MedianKSubsizedArrays();
+        result = slidingWindowMedian.findSlidingWindowMedian(new int[] {1,2,3,4,2,3,1,4,2}, 3);
+        expected = new double[]{2.0, 3.0, 3.0, 3.0, 2.0, 3.0, 2.0};
+        Assert.assertArrayEquals(expected,result, 0);
+
+        slidingWindowMedian = new MedianKSubsizedArrays();
+        result = slidingWindowMedian.findSlidingWindowMedian(new int[] {2147483647,2147483647}, 2);
+        expected = new double[]{2147483647.00000};
         Assert.assertArrayEquals(expected,result, 0);
 
     }
