@@ -5,6 +5,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Leetcode: 502. IPO
+ * https://leetcode.com/problems/ipo/
+ * 
  * Given a set of investment projects with their respective profits, 
  * we need to find the most profitable projects. We are given an initial capital 
  * and are allowed to invest only in a fixed number of projects. 
@@ -26,14 +29,19 @@ import org.junit.Test;
  * which will give us ‘3’ profit. After the completion of the two projects, 
  * our total capital will be 6 (1+2+3).
  * 
- * Time complexity: O (NlogN + KlogN): Since, at the most, all the projects will be pushed 
- *                  to both the heaps once, the time complexity of our algorithm is 
- *                  O(NlogN + KlogN) where ‘N’ is the total number of
- *                  projects and ‘K’ is the number of projects we are selecting.
  */
 public class MaximizeCapital {
 
     /**
+     * Approach: Greedy with Two Heaps
+     * 
+     * Time complexity: O (NlogN + KlogN): Since, at the most, all the projects will be pushed 
+     *                  to both the heaps once, the time complexity of our algorithm is 
+     *                  O(NlogN + KlogN) where ‘N’ is the total number of
+     *                  projects and ‘K’ is the number of projects we are selecting.
+     * 
+     * Space Complexity: O(N) because we will be storing all the projects in the heaps.
+     * 
      * Here are the steps of our algorithm: 
      * 1)  Add all project capitals to a min-heap, so that we can select a project with 
      *     the smallest capital requirement.
@@ -43,37 +51,47 @@ public class MaximizeCapital {
      * 3)  Finally, select the top project of the max-heap for investment.
      *     Repeat the 2nd and 3rd steps for the required number of projects.
      */
-    public static int findMaximumCapital(int[] capital, int[] profits, int numberOfProjects, int initialCapital) {
-        PriorityQueue<Integer> capitalProjects = new PriorityQueue<Integer>();
-        PriorityQueue<Integer> profitProjects = new PriorityQueue<Integer>(Collections.reverseOrder());
 
-        // 1)  Adding all project capitals to a min-heap
-        for (int i : capital) {
-            capitalProjects.offer(i);
-        }
-        //Filtering the projects that can be completed withing our avaiable capital
-        int availableCapital = initialCapital;
-        while (numberOfProjects > 0) {
-          while(!capitalProjects.isEmpty() && availableCapital >= capitalProjects.peek()) {
-                profitProjects.offer(profits[capitalProjects.poll()]);
-          }
-          // terminate if we are not able to find any project that can be completed within the available capital
-          if(profitProjects.isEmpty()) {
-            break;
-          } 
-           // select the project with the maximum profit
-          availableCapital += profitProjects.poll();
-          numberOfProjects--;
-        } 
-        return availableCapital;
+    public static int findMaximizedCapital(int[] Capital, int[] Profits, int numberOfProjects, int initialCap) {
+      // 1)  Adding all project capitals to a min-heap
+      PriorityQueue<Project> projCap = new PriorityQueue<Project>((p1,p2) -> Integer.compare(p1.capital, p2.capital));
+      for(int i = 0; i < Capital.length; i++) {
+          projCap.offer(new Project(Profits[i], Capital[i]));
       }
+      
+      int availableCapital = initialCap;
+      PriorityQueue<Project> projProf = new PriorityQueue<Project>((p1,p2) -> Integer.compare(p2.profit, p1.profit));
+      while(numberOfProjects > 0) {
+          //selecting possible projects with avaliable capital
+          while(!projCap.isEmpty() && projCap.peek().capital <= availableCapital) {
+              Project proj = projCap.poll();
+              projProf.offer(proj); //putting them into projProf
+          }
+                    // terminate if we are not able to find any project that can be completed within the available capital
+          if(projProf.isEmpty()) break;
+          //selecting the most profitable project
+          availableCapital += projProf.poll().profit;
+          numberOfProjects--;
+      }
+      return availableCapital;
+  }
+
     
       @Test
       public void validate() {
-        int result = MaximizeCapital.findMaximumCapital(new int[] { 0, 1, 2 }, new int[] { 1, 2, 3 }, 2, 1);
+        int result = MaximizeCapital.findMaximizedCapital(new int[] { 0, 1, 2 }, new int[] { 1, 2, 3 }, 2, 1);
         Assert.assertEquals(6, result);
-        result = MaximizeCapital.findMaximumCapital(new int[] { 0, 1, 2, 3 }, new int[] { 1, 2, 3, 5 }, 3, 0);
+        result = MaximizeCapital.findMaximizedCapital(new int[] { 0, 1, 2, 3 }, new int[] { 1, 2, 3, 5 }, 3, 0);
         Assert.assertEquals(8, result);
+        result = MaximizeCapital.findMaximizedCapital(new int[] { 0, 0, 0 }, new int[] { 1, 2, 3, 5 }, 1, 10);
+        Assert.assertEquals(13, result);
       }
-    
+}
+class Project {
+  int profit;
+  int capital;
+  Project(int p, int c){
+      profit = p;
+      capital = c;
+  }
 }
