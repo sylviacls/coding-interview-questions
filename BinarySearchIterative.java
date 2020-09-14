@@ -3,6 +3,10 @@ import org.junit.*;
 
 public class BinarySearchIterative {
 
+    /**
+     * Time Complexity: O(Log N)
+     * Space Complexity: O(1)
+     */
     public static int binarySearch(int[] list, int number) {
         int begin = 0;
         int last = list.length - 1;
