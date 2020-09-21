@@ -4,8 +4,19 @@ import java.util.List;
 
 /**
  * Given a string, find all of its permutations
+ * 
+ * Example:
+ * input: "ABC"
+ * result: "ABC", "ACB", "BAC", "BCA", "CBA", "CAB"
  */
 public class StringFindAllPermutations {
+
+    /**
+     * Approach: Recursion using swap
+     * 
+     * Time complexity: O(n * n!) 
+     * Space complexity: O(n!)
+     */
     public static List<String> findPermutation(String input) {
         List<String> result = new ArrayList<String>();
         char[] string = input.toCharArray();
@@ -38,8 +49,32 @@ public class StringFindAllPermutations {
         string[i] =  temp;
     }
 
+    /**
+     * Approach: Recursion 
+     * 
+     * Time Complexity: O(N * N!)
+     * Space Complexity:
+     */
+    public static List<String> findPermutationII(String input) {
+        List<String> result = new ArrayList<String>();
+        permutationII("",input,result);
+        return result;
+    }
+
+    private static void permutationII(String prefix, String suffix, List<String> result) {
+        if(suffix.length() == 0) {
+            result.add(prefix);
+            return;
+        } 
+        //N * N!
+        for (int i = 0; i < suffix.length(); i++) {
+            //substring concatenation will take o(n)
+            permutationII(prefix + suffix.charAt(i), suffix.substring(0, i) + suffix.substring(i+1, suffix.length()), result);
+        }
+    }
+
     public static void main(String[] args) {
-       List<String> result = findPermutation("ABC");
+       List<String> result = findPermutationII("ABC");
        for (String string : result) {
            System.out.println(string);
        }
