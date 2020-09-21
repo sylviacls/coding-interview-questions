@@ -4,19 +4,13 @@ import java.util.List;
 import org.junit.*;
 
 /**
+ * Leetcode: 78. Subsets
+ * https://leetcode.com/problems/subsets/
+ * 
  * Given a set with distinct elements, find all of its distinct subsets.
  * Ex:
  * Input: [1, 5, 3]
  * Output: [], [1], [5], [3], [1,5], [1,3], [5,3], [1,5,3]
- * 
- * To generate all subsets of the given set, we can use the Breadth First Search (BFS) approach. 
- * We can start with an empty set, iterate through all numbers one-by-one, and add them to 
- * existing sets to create new subsets.
- * 
- * Time complexity: O(2^N): the number of subsets doubles as we add each element to all the 
- *                  existing subsets, the time complexity of the above algorithm
- * Space complexity: O(2^N): All the additional space used by our algorithm is for the output 
- *                    list, and we will have a total of O(2^N) subsets
  * 
  * Backtracking/Recursion is about following a path to a base case...our target...our answer.
  * If a certain path ends up not meeting our constraints we will backtrack to an earlier 
@@ -39,11 +33,9 @@ import org.junit.*;
  * -) These will craft our base cases.
  */
 public class SubsetsFindAll {
-
     /**
-     * Driver-method - it uses a backtracking function
-     * @param nums
-     * @return
+     * Approach: Backtracking
+     * Driver-method
      */
     public static List<List<Integer>> findSubsetsBack(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();
@@ -53,16 +45,14 @@ public class SubsetsFindAll {
     /**
      * The main idea is that for each number we will make a choice about adding it or not in
      * the current subset 
+     * 
      * Time complexity: O(2^N), cause for every number we have to simulute choosing it and not choosing it
-     * Space complexity: O(N)
-     * @param list
-     * @param currentSet
-     * @param nums
-     * @param start
+     * Space complexity: O(2^N)
      */
     private static void backtrack(List<List<Integer>> list , List<Integer> currentSet, int [] nums, int start){
         //we add whatever our currentSet
         list.add(new ArrayList<>(currentSet));
+        System.out.println(list);
         //and then we'll go through the rest of the numbers simulating adding the current number "i"
         // and move forward in the list and once the recursive function returns we are gonna
         //simulating removing it
@@ -74,9 +64,14 @@ public class SubsetsFindAll {
     }
 
     /**
-     * Alternative method with a iterative approach
-     * @param nums
-     * @return
+     * Approach: Iterative - BFS
+     * 
+     * To generate all subsets of the given set, we can use the Breadth First Search (BFS) approach. 
+     * We can start with an empty set, iterate through all numbers one-by-one, and add them to 
+     * existing sets to create new subsets.
+     *
+     * Time Complexity: O(N* 2^N), 2^N subsets * N,cause we construct a new subset from an existing set,
+     * Space Complexity: O(2^N)
      */
     public static List<List<Integer>> findSubsets(int[] nums) {
       List<List<Integer>> subsets = new ArrayList<>();
@@ -97,19 +92,10 @@ public class SubsetsFindAll {
     
       @Test
       public void validate() {
-        List<List<Integer>> result = SubsetsFindAll.findSubsets(new int[] { 1, 3 });
-        Assert.assertEquals("[[], [1], [3], [1, 3]]", result.toString());
-    
-        result = SubsetsFindAll.findSubsetsBack(new int[] { 1, 3 });
-        Assert.assertEquals("[[], [1], [1, 3], [3]]", result.toString());
+        Assert.assertEquals("[[], [1], [3], [1, 3]]", SubsetsFindAll.findSubsets(new int[] { 1, 3 }).toString());
+        Assert.assertEquals("[[], [1], [1, 3], [3]]", SubsetsFindAll.findSubsetsBack(new int[] { 1, 3 }).toString());
 
-        result = SubsetsFindAll.findSubsets(new int[] { 1, 5, 3 });
-        Assert.assertEquals("[[], [1], [5], [1, 5], [3], [1, 3], [5, 3], [1, 5, 3]]", result.toString());
+        Assert.assertEquals("[[], [1], [5], [1, 5], [3], [1, 3], [5, 3], [1, 5, 3]]", SubsetsFindAll.findSubsets(new int[] { 1, 5, 3 }).toString());
+        Assert.assertEquals("[[], [1], [1, 5], [1, 5, 3], [1, 3], [5], [5, 3], [3]]", SubsetsFindAll.findSubsetsBack(new int[] { 1, 5, 3 }).toString());
       }
-
-      public static void main(String[] args) {
-        List<List<Integer>> result = SubsetsFindAll.findSubsetsBack(new int[] { 1, 2, 3});
-        System.out.println(result.toString());
-      }
-    
 }
