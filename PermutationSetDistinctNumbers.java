@@ -1,13 +1,12 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.junit.*;
 
 /**
+ * Leetcode: 46. Permutations
+ * https://leetcode.com/problems/permutations/
+ * 
  * Given a set of distinct numbers, find all of its permutations. Permutation is
  * defined as the re-arranging of the elements of the set. 
  * For example, {1, 2, 3} has the following six permutations:
@@ -22,7 +21,12 @@ import org.junit.*;
 public class PermutationSetDistinctNumbers {
 
 
-  public static List<List<Integer>> findPermutationsRecursive(int[] nums) {
+  /**
+   * Approach: Recursion + swap
+   * 
+   * Runtime: 4ms - Memory: 39.8MB
+   */
+  public static List<List<Integer>> findPermutationsRecursiveSWAP(int[] nums) {
       List<List<Integer>> result = new ArrayList<>();
       permute(result, nums, 0);
       return result;
@@ -32,10 +36,9 @@ public class PermutationSetDistinctNumbers {
    * This is an example of the “decrease and conquer” algorithmic strategy. 
    * On each pass through the loop, we peel off a value, solve the rest of the problem, 
    * and then make a change.
-   * Time complexity: O (N!)
-   * @param result
-   * @param input
-   * @param start
+   * 
+   * Time complexity: O(N!)
+   * Space complexity: O(N!)
    */
   private static void permute(List<List<Integer>> result, int[] input, int start) {
     if (start == input.length) {
@@ -56,13 +59,17 @@ public class PermutationSetDistinctNumbers {
     input[start] = temp;
   }
 
-  /**
-   *  Time complexity: O(N * N!): 
+
+   /**
+   * Approach: Iterative
+   * 
+   * Time complexity: O(N * N!): 
+   * 
    * We know that there are a total of N! permutations of a set with ‘N’ number. and we also
    * need to insert a number into a permutation of size ‘N’ which makes the overall 
    * time complexity of our algorithm O (N * N!)
-   * @param nums
-   * @return
+   * 
+   * Runtime: 1 ms: Memory: 38.9MB
    */
   public static List<List<Integer>> findPermutations(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
@@ -87,7 +94,10 @@ public class PermutationSetDistinctNumbers {
     return result;
   }
 
-  public static List<List<Integer>> findPermutationRec(int[] nums) {
+  /**
+   * Approach: Recursion
+   */
+  public static List<List<Integer>> findPermutationsRecursive(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
     generatePermutationsRecursive(nums, 0, new ArrayList<Integer>(), result);
     return result;
@@ -107,15 +117,19 @@ public class PermutationSetDistinctNumbers {
     }
   }
 
-  @Test
+
+   @Test
   public void validate() {
   List<List<Integer>> result = findPermutations(new int[] { 1, 3, 5 });
   Assert.assertEquals("[[5, 3, 1], [3, 5, 1], [3, 1, 5], [5, 1, 3], [1, 5, 3], [1, 3, 5]]",
              result.toString());
 
-   result = findPermutationsRecursive(new int[]{ 1, 2, 3});
+   result = findPermutationsRecursiveSWAP(new int[]{ 1, 2, 3});
    Assert.assertEquals("[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]",
              result.toString());
+
+   result = findPermutationsRecursive(new int[] { 1, 2, 3 });
+   Assert.assertEquals("[[3, 2, 1], [2, 3, 1], [2, 1, 3], [3, 1, 2], [1, 3, 2], [1, 2, 3]]", result.toString());
   }
-    
+  
 }
