@@ -4,6 +4,9 @@ import java.util.List;
 import org.junit.*;
 
 /**
+ * Leetcode: 784. Letter Case Permutation
+ * https://leetcode.com/problems/letter-case-permutation/
+ * 
  * Given a string, find all of its permutations preserving the character
  * sequence but changing case.
  * 
@@ -11,6 +14,12 @@ import org.junit.*;
  */
 public class StringPermutationChangeCase {
 
+    /**
+     * Approach: DFS
+     * 
+     * Time Complexity: O(2^N)
+     * Space Complexity: O(1)
+     */
     public static List<String> findPermutations(String input) {
         List<String> result = new ArrayList<>();
         findPermutations(input.toCharArray(), 0, result);
@@ -21,9 +30,6 @@ public class StringPermutationChangeCase {
        * As soon as you find a letter character at index, check for all its possible combinations
        * by making it a lower case character and an upper case character. 
        * Add the new char array at the at the end of each recursion.
-       * @param input
-       * @param pos
-       * @param result
        */
       private static void findPermutations(char[] input, int pos,List<String> result) {
           if(pos == input.length) {
@@ -76,7 +82,4 @@ public class StringPermutationChangeCase {
         result = findPermutations2("ab7c");
         Assert.assertEquals("[AB7C, AB7c, Ab7C, Ab7c, aB7C, aB7c, ab7C, ab7c]", result.toString());
     }
-      
-
- 
 }
