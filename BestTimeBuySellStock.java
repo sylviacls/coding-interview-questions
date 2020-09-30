@@ -1,5 +1,8 @@
 import java.util.PriorityQueue;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 /**
  * Leetcode: 121. Best Time to Buy and Sell Stock
  * https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
@@ -70,16 +73,9 @@ public class BestTimeBuySellStock {
         return maxProf;
 
     }
-    public static void main(String[] args) {
-        System.out.println(maxProfit(new int[]{7,1,5,3,6,4}));
-        System.out.println(maxProfit(new int[]{7,6,4,3,1}));
-    }
-}
-class Stock {
-    int day;
-    int price;
-    public Stock(int day, int price){
-        this.day = day;
-        this.price = price;
+    @Test
+    public void validate() {
+        Assert.assertEquals(5, maxProfit(new int[]{7,1,5,3,6,4}));
+        Assert.assertEquals(0, maxProfit(new int[]{7,6,4,3,1}));
     }
 }
