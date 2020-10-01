@@ -1,17 +1,25 @@
 import org.junit.*;
 
 /**
+ * Leetcode: 744. Find Smallest Letter Greater Than Target
+ * https://leetcode.com/problems/find-smallest-letter-greater-than-target/
+ * 
  * Given a list of sorted characters letters containing only lowercase letters,
- *  and given a target letter target, find the smallest element in the list that is 
+ * and given a target letter target, find the smallest element in the list that is 
  * larger than the given target.
  * 
  * Letters also wrap around. For example, if the target is target = 'z' 
  * and letters = ['a', 'b'], the answer is 'a'.
  * 
- * Time Complexity: O(logN)
- * Space Complexity: O(1)
  */
 public class NextGreaterLetter {
+
+    /**
+     * Approach: Binary Search
+     * 
+     * Time Complexity: O(logN)
+     * Space Complexity: O(1)
+     */
     public static char searchNextLetter(char[] letters, char target) {
         int n = letters.length;
         if(target < letters[0] || target >= letters[n-1]) {
@@ -36,6 +44,7 @@ public class NextGreaterLetter {
 
     @Test
     public void validate() {
+        Assert.assertEquals('f', searchNextLetter(new char[] {'c', 'f', 'j'}, 'c'));
         Assert.assertEquals('h', searchNextLetter(new char[] { 'a', 'c', 'f', 'h' }, 'f'));
         Assert.assertEquals('c', searchNextLetter(new char[] { 'a', 'c', 'f', 'h' }, 'b'));
         Assert.assertEquals('a', searchNextLetter(new char[] { 'a', 'c', 'f', 'h' }, 'm'));
