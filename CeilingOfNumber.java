@@ -23,12 +23,14 @@ import org.junit.*;
 public class CeilingOfNumber {
 
     /**
+     * Approach: Binary Search
+     * 
      * We will try to search for the ‘key’ in the given array. If we find the ‘key’, 
      * we return its index as the ceiling. If we can’t find the ‘key’, 
      * the next big number will be pointed out by the index start. 
-     * @param list
-     * @param key
-     * @return
+     * 
+     * Time Complexity: O(logN)
+     * Space Complexity: O(1)
      */
     public static int searchCeilingOfANumber(int[] list, int key) {
         int begin = 0;
