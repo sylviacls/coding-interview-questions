@@ -16,11 +16,15 @@ import org.junit.*;
  * Output: 3
  * Explanation: The biggest number smaller than or equal to '12' is '10' having index '3'.
  * 
- * Time Complexity: O(logN)
- * Space Complexity: O(1)
  */
 public class FloorOfNumber {
 
+    /**
+     * Approach> Binary Search
+     * 
+     * Time Complexity: O(logN)
+     * Space Complexity: O(1)
+     */
     public static int searchFloorOfANumber(int[] arr, int key) {
         int start = 0;
         int end = arr.length-1;
