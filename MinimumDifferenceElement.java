@@ -16,12 +16,21 @@ import org.junit.Test;
  * 
  * Input: [1, 3, 8, 10, 15], key = 12
  * Output: 10
- * 
- * Time Complexity: O(Log N)
- * Space Complexity: O(1)
  */
 public class MinimumDifferenceElement {
 
+    /**
+     * Approach: Binary Search
+     * 
+     * We will try to search for the ‘key’ in the given array. If we find the ‘key’ we will
+     * return it as the minimum difference number. If we can’t find the ‘key’, (at the end 
+     * of the loop) we can find the differences between the ‘key’ and the numbers pointed out
+     * by indices start and end, as these two numbers will be closest to the ‘key’. The number
+     * that gives minimum difference will be our required number.
+     *
+     * Time Complexity: O(Log N)
+     * Space Complexity: O(1)
+     */
     public static int searchMinDiffElement(int[] arr, int key) {
         int start = 0;
         int end = arr.length - 1;
