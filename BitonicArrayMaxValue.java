@@ -17,7 +17,7 @@ import org.junit.*;
  * Space Complexity: O(1)
  * 
  */
-public class MaxInBitonicArray {
+public class BitonicArrayMaxValue {
   
   /**
    * It uses binary search.
