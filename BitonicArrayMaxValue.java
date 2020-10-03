@@ -1,6 +1,9 @@
 import org.junit.*;
 
 /**
+ * Leetcode: 852. Peak Index in a Mountain Array
+ * https://leetcode.com/problems/peak-index-in-a-mountain-array/
+ * 
  * Find the maximum value in a given Bitonic array. An array is considered bitonic
  * if it is monotonically increasing and then monotonically decreasing. 
  * 
@@ -31,7 +34,6 @@ public class BitonicArrayMaxValue {
     int start = 0;
     int end = arr.length-1;
 
-    
     //We can break when start == end. both start and end will be pointing at the maximum number 
     while (start < end) {
       int mid = start + (end-start)/2;
@@ -41,14 +43,12 @@ public class BitonicArrayMaxValue {
         end = mid;
       } else {
         // we are in the first (ascending) part of the array. Therefore, the required
-        // number
-        // will be after middle.
+        // number will be after middle.
         start = mid + 1;
       }
     }
     return arr[start];
   }
-
   @Test
   public void validate() {
     Assert.assertEquals(12, findMax(new int[] { 1, 3, 8, 12, 4, 2 }));
