@@ -20,6 +20,10 @@ import org.junit.Test;
  */
 public class ArrayRotatedSearch {
 
+    /**
+     * Time Complexity: O(2*LogN) (find pivot : LogN + perform regular binary search logN)
+     * Space Complexity: O(1)
+     */
     public static int search(int[] arr, int key) {
         if(arr == null || arr.length == 0) return -1;
 
@@ -66,6 +70,10 @@ public class ArrayRotatedSearch {
         return -1;
     }
 
+    /**
+     * Time Complexity: O(LogN)
+     * Space Complexity: O(1)
+     */
     public static int searchII(int[] arr, int key) {
         int start = 0, end = arr.length - 1;
         while (start <= end) {
