@@ -71,6 +71,19 @@ public class ArrayRotatedSearch {
     }
 
     /**
+     * After calculating the middle, we can compare the numbers at indices start and middle.
+     * This will give us two options:
+     * 1 - If arr[start] <= arr[middle], the numbers from start to middle are sorted in
+     *    ascending order.
+     * 2- Else, the numbers from middle+1 to end are sorted in ascending order.
+     * 
+     * Once we know which part of the array is sorted, it is easy to adjust our ranges. 
+     * For example, if option-1 is true, we have two choices:
+     * 1- By comparing the ‘key’ with the numbers at index start and middle we can easily 
+     * find out if the ‘key’ lies between indices start and middle; if it does, we can skip
+     * the second part => end = middle -1.
+     * 2- Else, we can skip the first part => start = middle + 1.
+     * 
      * Time Complexity: O(LogN)
      * Space Complexity: O(1)
      */
