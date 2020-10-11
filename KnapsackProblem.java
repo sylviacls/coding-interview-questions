@@ -21,18 +21,23 @@ public class KnapsackProblem {
     /**
      * Approach: Brute-Force with recursion
      * 
-     * A simple solution is to consider all subsets of items and calculate the total weight and
-     * value of all subsets. Consider the only subsets whose total weight is smaller than capacity.
-     * From all such subsets, pick the maximum value subset.
+     * A simple solution is to consider all subsets of items and calculate the total
+     * weight and value of all subsets. Consider the only subsets whose total weight
+     * is smaller than capacity. From all such subsets, pick the maximum value
+     * subset.
      * 
-     * To consider all subsets of items, there can be two cases for every item:
-     *  Case 1: The item is included in the optimal subset.
-     *  Case 2: The item is not included in the optimal set.
+     * To consider all subsets of items, there can be two cases for every item: Case
+     * 1: The item is included in the optimal subset. Case 2: The item is not
+     * included in the optimal set.
      * 
-     * Therefore, the maximum value that can be obtained from ‘n’ items is the max of the following two values.
+     * Therefore, the maximum value that can be obtained from ‘n’ items is the max
+     * of the following two values.
      * 
-     * Time Complexity: O(2^N) Where ‘n’ represents the total number of items
-     * Space Complexity: O(N) space used by recursion stack
+     * Time Complexity: O(2^N) Where ‘n’ represents the total number of items Space
+     * Complexity: O(N) space used by recursion stack
+     * 
+     * !!! It can result in erros since it generates too many recursive calls
+     * 
      * @param profits
      * @param weights
      * @param capacity
@@ -83,6 +88,8 @@ public class KnapsackProblem {
      *                  than N*C subproblems
      * Space Complexity: O(N*C), N*C for the cache array + N for recursion stach, which is
      *                   asymptotically equivalent to O(N∗C)
+     * 
+     * !!! In some cases it can result in erros since it generates too many recursive calls
      * @param profits
      * @param weights
      * @param capacity
@@ -119,7 +126,7 @@ public class KnapsackProblem {
     }
 
     /**
-     * Approach: Bottom-Up Dynamic Programming 
+     * Approach: Bottom-Up Dynamic Programming with Tabulation
      * 
      * Essentially, we want to find the maximum profit for every sub-array and for every possible
      * capacity. This means that dp[i][c] will represent the maximum knapsack profit for capacity
