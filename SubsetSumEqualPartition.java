@@ -2,8 +2,14 @@ import java.util.Arrays;
 import org.junit.*;
 
 /**
+ * Leetcode: 416. Partition Equal Subset Sum
+ * https://leetcode.com/problems/partition-equal-subset-sum/
+ * 
+ * Given a non-empty array nums containing only positive integers, find if the array can 
+ * be partitioned into two subsets such that the sum of elements in both subsets is equal.
+ * 
  * Given a set of positive numbers, find if we can partition it into two subsets such that
- *  the sum of elements in both subsets is equal. 
+ * the sum of elements in both subsets is equal. 
  * 
  * Example 1:
  * Input: {1, 2, 3, 4}
@@ -32,6 +38,8 @@ public class SubsetSumEqualPartition {
      * 
      * Time Complexity: O(2^N)
      * Space Complexity: O(N), for the recursion stack
+     * 
+     * Runtime 86 ms	Memory 48.9 MB
      * @param nums
      * @return
      */
@@ -41,6 +49,8 @@ public class SubsetSumEqualPartition {
         // if 'sum' is a an odd number, we can't have two subsets with equal sum
         if(nums.length <= 1 || sum%2 != 0) return false;
 
+        // The first dimension of the array will represent different subsets and the second 
+        //dimension will represent different ‘sums’ that we can calculate from each subset.
         Boolean[][] state = new Boolean[nums.length][sum/2 + 1];
         return canPartitionHelper(nums, 0, sum/2, state);
     }
@@ -72,6 +82,8 @@ public class SubsetSumEqualPartition {
      * Time Complexity : O(N*S), where ‘N’ represents total numbers and ‘S’ is the total sum/2 
      *                  of all the numbers.
      * Space Complexity: O(N*S)
+     * 
+     * Runtime 62 ms	Memory 48.9 MB
      * @param nums
      * @return
      */
@@ -116,6 +128,7 @@ public class SubsetSumEqualPartition {
         return dp[nums.length-1][sum];
     }
 
+    
     @Test
     public void validate() {
         int[] num = {1, 2, 3, 4};
@@ -135,6 +148,10 @@ public class SubsetSumEqualPartition {
         Assert.assertTrue(canPartitionBottomUp(num));  
         
         num = new int[]{3, 10, 2, 1, 18};
+        Assert.assertFalse(canPartition(num));
+        Assert.assertFalse(canPartitionBottomUp(num));  
+
+        num = new int[]{1,2,5};
         Assert.assertFalse(canPartition(num));
         Assert.assertFalse(canPartitionBottomUp(num));  
 
