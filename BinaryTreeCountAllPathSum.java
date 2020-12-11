@@ -41,7 +41,7 @@ public class BinaryTreeCountAllPathSum {
           // if the sum of any sub-path is equal to 'S' we increment our path count.
           if(pathSum == sum) 
               pathCount++;
-      }
+        }
         /*ListIterator<Integer> iterator = currentPath.listIterator(currentPath.size());
 
         while(iterator.hasPrevious()) {
