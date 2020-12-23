@@ -18,7 +18,7 @@ public class PalindromicSubstrings {
     static int count = 0;
     
     /**
-     * The idea is start from each index and try to extend palindrome for both odd and even length.
+     * The idea is start from each index and try to extend palindrome for both odd and even length
      */
     public static int countSubstrings(String s) {
         if (s == null || s.length() == 0) return 0;
@@ -30,7 +30,17 @@ public class PalindromicSubstrings {
         
         return count;
     }
-    
+
+    /**
+     * This auxiliar method checks whether the current substring is a palindrome or not
+     * Left and right will point to "middle" of the substring and we're gonna try to expand
+     * our current substring to find the longest palindrome
+     * 
+     * For the case of an odd lenght "racecar", both left and right will point to the middle 'e'
+     * For the case of an even length "abba", left will point to the first b (index 1) and 
+     * right will point to the second b (index 2)
+     * 
+     */
     private static void extendPalindrome(String s, int left, int right) {
         while (left >=0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
             count++; 
