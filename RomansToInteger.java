@@ -1,5 +1,8 @@
 import java.util.HashMap;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 public class RomansToInteger {
     
    public static int romansToInteger(String roman) {
@@ -39,7 +42,11 @@ public class RomansToInteger {
       return count;
    } 
 
-   public static void main(String[] args) {
-      System.out.println(RomansToInteger.romansToInteger("XXXIV"));
+   @Test
+   public void validate() {
+      Assert.assertEquals(34, RomansToInteger.romansToInteger("XXXIV"));
+      Assert.assertEquals(4, RomansToInteger.romansToInteger("IV"));
+      Assert.assertEquals(3, RomansToInteger.romansToInteger("III"));
+      Assert.assertEquals(58, RomansToInteger.romansToInteger("LVIII"));
    }
 }
