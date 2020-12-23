@@ -19,6 +19,9 @@ public class PalindromicSubstrings {
     
     /**
      * The idea is start from each index and try to extend palindrome for both odd and even length
+     * 
+     * Time Complexity: O(N^2)
+     * Space Complexity: O(1)
      */
     public static int countSubstrings(String s) {
         if (s == null || s.length() == 0) return 0;
