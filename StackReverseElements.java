@@ -8,6 +8,11 @@
 import java.util.*;
 
 public class StackReverseElements { 
+
+    /**
+     * Time Complexity: O(N)
+     * Space Complexity: O(N)
+     */
     public static Stack<Integer> reverse(Stack<Integer> stack)  {
         Stack<Integer> reversed = new Stack<Integer>();
         Stack<Integer> temp = new Stack<Integer>();
