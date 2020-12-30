@@ -1,5 +1,3 @@
-import jdk.javadoc.internal.doclets.formats.html.SplitIndexWriter;
-
 /**
  * Given some text lines in one string, each line is separated by ‘\n’ character. 
  * Print the last N lines. If the number of lines is less than N, then print all lines.
