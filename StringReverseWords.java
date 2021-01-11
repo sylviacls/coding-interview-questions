@@ -1,5 +1,8 @@
 import java.util.*;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 /**
  * Leetcode: 151. Reverse Words in a String
  * https://leetcode.com/problems/reverse-words-in-a-string/
@@ -9,77 +12,60 @@ public class StringReverseWords {
 
 
     public static String reverseWords(String s) {
-        String[] words = s.trim().split(" +");
+        String[] words = s.trim().split(" +");//splitting on the regex for one-or-more whitespace
         Collections.reverse(Arrays.asList(words));
         return String.join(" ", words);
     }
 
-    // Null terminating strings are not used in java
-    public static void strRev(char[] str, int start, int end) {
-        if (str == null || str.length < 2) {
-            return;
+    public static String reverseWordsII(String s) {
+        String[] words = s.trim().split(" +");
+        StringBuilder sb = new StringBuilder();
+        for (int i = words.length -1; i >= 0; i--) {
+            sb.append(words[i]);
+            sb.append(" ");
         }
-        while (start < end) {
-            char temp = str[start];
-            str[start] = str[end];
-            str[end] = temp;
-            start++;
-            end--;
-        }
+        return sb.toString().trim();
     }
 
-    public static void reverseWordsII(char[] sentence) {
 
-        // Here sentence is a null-terminated string ending with char '\0'.
-        if (sentence == null || sentence.length == 0) {
-            return;
-        }
-        // To reverse all words in the string, we will first reverse
-        // the string. Now all the words are in the desired location, but
-        // in reverse order: "Hello World" -> "dlroW olleH".
-        int len = sentence.length;
-        strRev(sentence, 0, len - 2);
-
-        // Now, let's iterate the sentence and reverse each word in place.
-        // "dlroW olleH" -> "World Hello"
-        int start = 0;
-        int end;
-        while (true) {
-            // find the start index of a word while skipping spaces.
-            while (sentence[start] == ' ') {
-                ++start;
-            }
-            if (start >= sentence.length - 1) {
-                break;
-            }
-            // find the end index of the word.
-            end = start + 1;
-            while (end < sentence.length - 1 && sentence[end] != ' ') {
-                ++end;
-            }
-
-            // let's reverse the word in-place.
-            strRev(sentence, start, end - 1);
-
-            start = end;
-        }
-    }
-
-    static char[] getArray(String t) {
-        char[] s = new char[t.length() + 1];
+    public static String reverseWordsIII(String s) {
+        char[] setence = s.toCharArray();
         int i = 0;
-        for (; i < t.length(); ++i) {
-            s[i] = t.charAt(i);
+        int n = setence.length;
+        String result = "";
+        while ( i < n) {
+            while( i < n && setence[i] == ' ') i++; //skipping with spaces
+            if(i >= n) break;
+
+            int j = i + 1; //i will be point to the first non-space char
+            while(j < n && setence[j] != ' ') j++; //keeping the next non-space char
+            //j will be point to the next space
+            String currWord = s.substring(i, j);
+
+            if(result.length() == 0) { //first word
+                result = currWord;
+            } else {
+                result = currWord + " " + result; //placing the current word at the beggining
+            }
+
+            i = j + 1;
         }
-        return s;
+        return result;
     }
 
-  public static void main(String[] args) {
-    char[] s = getArray("Hello World!");
-    System.out.println(s);
-    reverseWordsII(s);
-    System.out.println(s);
-    System.out.println(reverseWords("Hello World!"));
+  @Test
+  public void validate() {
+        String s = "  hello world  ";
+        String expected = "world hello";
+        Assert.assertEquals(expected, reverseWords(s));
+        Assert.assertEquals(expected, reverseWordsII(s));
+        Assert.assertEquals(expected, reverseWordsIII(s)); 
+
+        String s2 = "the sky is blue";
+        String expected2 = "blue is sky the";
+        Assert.assertEquals(expected2, reverseWords(s2));
+        Assert.assertEquals(expected2, reverseWordsII(s2));
+        Assert.assertEquals(expected2, reverseWordsIII(s2)); 
   }
 
 }
