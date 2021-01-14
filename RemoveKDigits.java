@@ -38,24 +38,25 @@ public class RemoveKDigits {
         for (int i = 0; i < num.length(); i++) {
             char ch = num.charAt(i);
              //whenever meet a digit which is less than the previous digit, discard the previous one
-            if(k > 0 && !stack.empty() && stack.peek() >ch) {
+            while(k > 0 && !stack.empty() && stack.peek() >ch) {
                 stack.pop();
                 k--;
             }
             stack.push(ch);
         }
+
+        // corner case like "1111"
+        while (k > 0) {
+            stack.pop();
+            k--;
+        }
+
         //construct the number from the stack
         StringBuilder sb = new StringBuilder();
         while(!stack.empty()) {
             sb.append(stack.pop());
         }
         sb.reverse();
-
-        // corner case like "1111"
-        while(k>0){
-            stack.pop();
-            k--;            
-        }
 
          //remove all the 0 at the head
          while(sb.length() > 1 && sb.charAt(0)=='0') {
@@ -69,5 +70,7 @@ public class RemoveKDigits {
     public void validate(){
         Assert.assertEquals("1219", removeKdigits("1432219", 3));
         Assert.assertEquals("200", removeKdigits("10200", 1));
+        Assert.assertEquals("11", removeKdigits("112", 1));
+        Assert.assertEquals("0", removeKdigits("1234567890", 9));
     }
 }
