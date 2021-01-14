@@ -31,6 +31,9 @@ public class RemoveKDigits {
      * Space Complexity: O(N)
      */
     public static String removeKdigits(String num, int k) {
+         //corner case
+         if(k==num.length()) return "0";
+
         Stack<Character> stack = new Stack<Character>();
         for (int i = 0; i < num.length(); i++) {
             char ch = num.charAt(i);
