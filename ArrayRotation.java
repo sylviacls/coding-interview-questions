@@ -2,10 +2,45 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Write a program to accomplish array rotation by left and right.
+ * Leetcode:189. Rotate Array
+ * https://leetcode.com/problems/rotate-array/
+ * 
+ * Given an array, rotate the array to the right by k steps, where k is non-negative.
+ * 
+ * Example 1:
+ * Input: nums = [1,2,3,4,5,6,7], k = 3
+ * Output: [5,6,7,1,2,3,4]
+ * 
+ * Explanation:
+ * rotate 1 steps to the right: [7,1,2,3,4,5,6]
+ * rotate 2 steps to the right: [6,7,1,2,3,4,5]
+ * rotate 3 steps to the right: [5,6,7,1,2,3,4]
  */
 public class ArrayRotation {
 
+     /**
+     * Approach: Creating a new array and using relative position: factor % input.lenght
+     * Time Complexity: O(N)
+     * Space Complexity: O(N)
+     * @param input
+     * @param factor
+     * @return
+     */
+    public int[] rotateRight(int[] input, int factor) {
+        int n = input.length;
+        factor = factor % n; // to avoid unnecessary work when factor > input.lenght
+        int[] result = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            result[(i+factor)%n] = input[i];
+        }
+
+     /*   for (int i = 0; i < result.length; i++) {
+            input[i] = result[i];
+        }*/
+        return result;
+    }
+    
     /**
      * Approach: Using an auxiliar reverse function
      * This approach is based on the fact that when we rotate the array k times, 
@@ -40,25 +75,7 @@ public class ArrayRotation {
             end--;
         }
     }
-    /**
-     * Approach: Creating a new array and using relative position: factor % input.lenght
-     * Time Complexity: O(N)
-     * Space Complexity: O(N)
-     * @param input
-     * @param factor
-     * @return
-     */
-    public static int[] rotateRight(int[] input, int factor) {
-        int n = input.length;
-        factor = factor % n; // to avoid unnecessary work when factor > input.lenght
-        int[] result = new int[n];
 
-        for (int i = 0; i < n; i++) {
-            result[(i+factor)%n] = input[i];
-        }
-
-        return result;
-    }
 
     /**
      * Time Complexity: O(N)
