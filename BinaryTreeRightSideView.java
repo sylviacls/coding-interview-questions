@@ -23,6 +23,9 @@ public class BinaryTreeRightSideView {
     /**
      * Approach: BFS
      * 
+     * At each level we will be interest in the last element. 
+     * That element will be our "right view" from this level.
+     * 
      * Time Complexity: O(N)
      * Space Complexity: O(N)
      * 
@@ -35,7 +38,7 @@ public class BinaryTreeRightSideView {
         queue.offer(root);
         while(!queue.isEmpty()) {
             int items = queue.size();
-            TreeNode current = null;
+            TreeNode current = null; //to store the last element of the level
             while(items > 0) {
                 current = queue.poll();
                 if(current.left != null) queue.offer(current.left);
@@ -43,6 +46,8 @@ public class BinaryTreeRightSideView {
 
                 items--;
             }
+            //at the end of the loop current will be the last node in the level
+            //that is, it will be the righ view of this level
             result.add(current.val);
         }
         return result;
