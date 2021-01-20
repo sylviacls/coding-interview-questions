@@ -70,6 +70,15 @@ public class BinaryTreeMaximumMinimumDepth {
         }
         return minimumDepth;
     }
+
+    public static int minimumDepthRecursive(TreeNode node) {
+        if(node == null) return 0;
+
+        int leftSide = minimumDepth(node.left);
+        int rightSide = minimumDepth(node.right);
+
+        return 1+ Math.min(leftSide, rightSide);
+    }
     
     /**
      * Approach: BFS
@@ -116,10 +125,12 @@ public class BinaryTreeMaximumMinimumDepth {
         root.right.right = new TreeNode(5);
 
         Assert.assertEquals(2, minimumDepth(root));
+        Assert.assertEquals(2, minimumDepthRecursive(root));
         Assert.assertEquals(3, maximumDepth(root));
         root.left.left = new TreeNode(9);
         root.right.left.left = new TreeNode(11);
         Assert.assertEquals(3, minimumDepth(root));
+        Assert.assertEquals(3, minimumDepthRecursive(root));
         Assert.assertEquals(4, maximumDepth(root));
 
       }
