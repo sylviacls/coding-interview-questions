@@ -11,17 +11,18 @@ import org.junit.Test;
  * have logN nodes in it allPaths list will be O(N*logN)
  */
 public class BinaryTreeRootToLeafMaxSum {
+    static int maxSum;
+    static List<Integer> maxPath;
 
     public static List<Integer> findPathMaxSum(TreeNode root) {
         List<Integer> currentPath = new ArrayList<Integer>();
-        List<Integer> maxPath = new ArrayList<Integer>();
-        int maxSum = Integer.MIN_VALUE;
-        findPath(root, maxSum, currentPath, maxPath);
-        return currentPath;
+        maxPath = new ArrayList<Integer>();
+        maxSum = Integer.MIN_VALUE;
+        findPath(root, currentPath);
+        return maxPath;
     }
 
-    public static void findPath(TreeNode root, int maxSum, List<Integer> currentPath, 
-                                List<Integer> maxPath) {
+    public static void findPath(TreeNode root, List<Integer> currentPath) {
         if (root == null)
             return;
 
@@ -38,8 +39,8 @@ public class BinaryTreeRootToLeafMaxSum {
             }
         }
 
-        findPath(root.left, maxSum, currentPath, maxPath);
-        findPath(root.right, maxSum, currentPath, maxPath);
+        findPath(root.left, currentPath);
+        findPath(root.right, currentPath);
 
         // after visiting its children, we remove the node from current path
         currentPath.remove(currentPath.size() - 1);
@@ -54,7 +55,7 @@ public class BinaryTreeRootToLeafMaxSum {
         root.right.left = new TreeNode(10);
         root.right.right = new TreeNode(5);
         List<Integer> result = findPathMaxSum(root);
-        Assert.assertEquals("[[12, 7, 4]", result.toString());
+        Assert.assertEquals(Arrays.asList(12,7,4), result);
     }
 
 }
